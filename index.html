@@ -8,303 +8,310 @@
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-  background:#f4f6fb;
-  color:#172033;
+    background:#f5f7fb;
+    color:#172033;
+    padding-bottom:75px;
 }
 
 /* HEADER */
 header{
-  background:linear-gradient(135deg,#4f46e5,#7c3aed);
-  color:white;
-  padding:15px;
-  position:sticky;
-  top:0;
-  z-index:1000;
-  box-shadow:0 3px 15px #0002;
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    color:white;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px #0002;
 }
 
-.navbar{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.nav{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .logo{
-  font-size:23px;
-  font-weight:bold;
+    font-size:23px;
+    font-weight:bold;
 }
 
 .logo small{
-  display:block;
-  font-size:11px;
-  opacity:.85;
-  margin-top:3px;
+    display:block;
+    font-size:11px;
+    opacity:.85;
+    margin-top:3px;
 }
 
-.admin-btn{
-  border:0;
-  background:white;
-  color:#4f46e5;
-  padding:10px 14px;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
+.add-btn{
+    border:0;
+    background:white;
+    color:#4f46e5;
+    padding:9px 13px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 /* HERO */
 .hero{
-  max-width:1100px;
-  margin:20px auto;
-  padding:35px 25px;
-  border-radius:20px;
-  color:white;
-  background:linear-gradient(135deg,#111827,#3730a3);
+    max-width:1100px;
+    margin:18px auto;
+    padding:32px 22px;
+    border-radius:20px;
+    background:linear-gradient(135deg,#111827,#3730a3);
+    color:white;
 }
 
 .hero h1{
-  font-size:32px;
-  margin-bottom:10px;
+    font-size:30px;
+    margin-bottom:9px;
 }
 
 .hero p{
-  line-height:1.6;
-  color:#dbeafe;
+    color:#dbeafe;
+    line-height:1.6;
 }
 
 /* SEARCH */
 .search{
-  max-width:1100px;
-  margin:20px auto;
-  padding:0 5px;
+    max-width:1100px;
+    margin:18px auto;
 }
 
 .search input{
-  width:100%;
-  padding:15px;
-  border:1px solid #ddd;
-  border-radius:12px;
-  font-size:15px;
-  outline:none;
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
 }
 
 /* CATEGORY */
 .categories{
-  max-width:1100px;
-  margin:20px auto;
-  padding:5px;
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
+    max-width:1100px;
+    margin:15px auto;
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding:5px;
 }
 
 .category{
-  border:0;
-  padding:10px 17px;
-  border-radius:20px;
-  background:white;
-  white-space:nowrap;
-  cursor:pointer;
-  box-shadow:0 2px 8px #0001;
+    border:0;
+    padding:9px 15px;
+    border-radius:20px;
+    background:white;
+    white-space:nowrap;
+    cursor:pointer;
+    box-shadow:0 2px 8px #0001;
 }
 
 .category.active{
-  background:#4f46e5;
-  color:white;
+    background:#4f46e5;
+    color:white;
 }
 
 /* MAIN */
 .container{
-  max-width:1100px;
-  margin:25px auto;
-  padding:0 5px;
+    max-width:1100px;
+    margin:25px auto;
 }
 
 .section-title{
-  margin-bottom:18px;
-  font-size:23px;
+    margin-bottom:16px;
+    font-size:22px;
 }
 
 .cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+    gap:17px;
 }
 
 .card{
-  background:white;
-  padding:20px;
-  border-radius:17px;
-  box-shadow:0 5px 18px #0001;
+    background:white;
+    padding:19px;
+    border-radius:16px;
+    box-shadow:0 5px 18px #0001;
 }
 
 .icon{
-  width:50px;
-  height:50px;
-  background:#ede9fe;
-  border-radius:14px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:25px;
-  margin-bottom:14px;
+    width:50px;
+    height:50px;
+    border-radius:13px;
+    background:#ede9fe;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+    margin-bottom:13px;
 }
 
 .card h3{
-  margin-bottom:8px;
+    margin-bottom:7px;
 }
 
 .card p{
-  color:#667085;
-  font-size:14px;
-  line-height:1.5;
-  margin-bottom:12px;
+    color:#667085;
+    font-size:14px;
+    line-height:1.5;
+    margin-bottom:10px;
 }
 
 .card small{
-  color:#667085;
+    color:#667085;
 }
 
-/* BUTTONS */
-.open-btn{
-  display:inline-block;
-  text-decoration:none;
-  border:0;
-  background:#4f46e5;
-  color:white;
-  padding:10px 14px;
-  border-radius:9px;
-  cursor:pointer;
-  font-weight:bold;
-  margin-top:12px;
-}
-
-.edit-btn{
-  background:#f59e0b;
-}
-
-.delete-btn{
-  background:#ef4444;
+/* LINK BUTTON */
+.link-btn{
+    display:inline-block;
+    margin-top:12px;
+    padding:10px 17px;
+    background:#4f46e5;
+    color:white;
+    text-decoration:none;
+    border-radius:9px;
+    font-weight:bold;
 }
 
 /* ADMIN */
-.admin-panel{
-  display:none;
-  max-width:700px;
-  margin:25px auto;
-  background:white;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 5px 20px #0002;
+.admin{
+    display:none;
+    max-width:700px;
+    margin:20px auto;
+    background:white;
+    padding:23px;
+    border-radius:17px;
+    box-shadow:0 5px 20px #0002;
 }
 
-.admin-panel h2{
-  margin-bottom:18px;
+.admin h2{
+    margin-bottom:17px;
 }
 
-.form-group{
-  margin-bottom:15px;
+.group{
+    margin-bottom:14px;
 }
 
-.form-group label{
-  display:block;
-  margin-bottom:6px;
-  font-weight:bold;
-  font-size:14px;
+.group label{
+    display:block;
+    margin-bottom:6px;
+    font-weight:bold;
+    font-size:14px;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select{
-  width:100%;
-  padding:12px;
-  border:1px solid #d0d5dd;
-  border-radius:9px;
-  outline:none;
+.group input,
+.group textarea,
+.group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d0d5dd;
+    border-radius:9px;
+    outline:none;
 }
 
-.form-group textarea{
-  min-height:80px;
-  resize:vertical;
+.group textarea{
+    min-height:75px;
 }
 
-.save-btn{
-  width:100%;
-  border:0;
-  padding:13px;
-  border-radius:10px;
-  background:#16a34a;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
+.save{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    font-weight:bold;
 }
 
-.close-btn{
-  width:100%;
-  margin-top:8px;
-  border:0;
-  padding:11px;
-  border-radius:10px;
-  cursor:pointer;
+.close{
+    width:100%;
+    margin-top:8px;
+    padding:11px;
+    border:0;
+    border-radius:10px;
+}
+
+/* BOTTOM NAVIGATION */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:65px;
+    background:white;
+    box-shadow:0 -3px 15px #0002;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    z-index:999;
+}
+
+.nav-item{
+    text-align:center;
+    color:#667085;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.nav-item span{
+    display:block;
+    font-size:22px;
+    margin-bottom:3px;
+}
+
+.nav-item.active{
+    color:#4f46e5;
+    font-weight:bold;
 }
 
 /* FOOTER */
 footer{
-  margin-top:40px;
-  padding:30px;
-  text-align:center;
-  background:#111827;
-  color:white;
+    margin-top:40px;
+    padding:25px;
+    text-align:center;
+    background:#111827;
+    color:white;
 }
 
 footer p{
-  margin-top:6px;
-  color:#cbd5e1;
-  font-size:13px;
-}
-
-.empty{
-  grid-column:1/-1;
-  text-align:center;
-  padding:40px;
-  color:#667085;
+    margin-top:5px;
+    color:#cbd5e1;
+    font-size:13px;
 }
 
 /* MOBILE */
 @media(max-width:600px){
 
-  .hero{
-    margin:12px;
-    padding:28px 20px;
-  }
+    .hero{
+        margin:12px;
+    }
 
-  .hero h1{
-    font-size:26px;
-  }
+    .search,
+    .categories,
+    .container{
+        margin-left:12px;
+        margin-right:12px;
+    }
 
-  .container,
-  .search,
-  .categories{
-    margin-left:12px;
-    margin-right:12px;
-  }
+    .logo{
+        font-size:20px;
+    }
 
-  .logo{
-    font-size:20px;
-  }
-
-  .admin-btn{
-    font-size:12px;
-    padding:9px;
-  }
+    .add-btn{
+        font-size:12px;
+    }
 }
 </style>
 </head>
@@ -314,15 +321,16 @@ footer p{
 <!-- HEADER -->
 <header>
 
-<div class="navbar">
+<div class="nav">
 
 <div class="logo">
 🚀 ARCSTFUG
 <small>Education & Learning App</small>
 </div>
 
-<button class="admin-btn" onclick="toggleAdmin()">
-⚙️ Add Link
+<button class="add-btn"
+onclick="toggleAdmin()">
+➕ Add Link
 </button>
 
 </div>
@@ -330,33 +338,32 @@ footer p{
 </header>
 
 
-<!-- HERO -->
-<section class="hero">
+<!-- HOME -->
+<section id="home">
+
+<div class="hero">
 
 <h1>Welcome to ARCSTFUG 👋</h1>
 
 <p>
-Your educational hub for lectures, courses, notes,
-study materials and useful learning resources.
+Study materials, lectures, notes, books
+and useful educational resources.
 </p>
-
-</section>
-
-
-<!-- SEARCH -->
-<div class="search">
-
-<input
-type="text"
-id="searchInput"
-placeholder="🔍 Search lectures, courses, notes..."
-oninput="displayLinks()"
->
 
 </div>
 
 
-<!-- CATEGORIES -->
+<div class="search">
+
+<input
+id="search"
+type="text"
+placeholder="🔍 Search resources..."
+oninput="displayLinks()">
+
+</div>
+
+
 <div class="categories">
 
 <button
@@ -373,8 +380,14 @@ JEE
 
 <button
 class="category"
-onclick="filterCategory('NEET',this)">
-NEET
+onclick="filterCategory('Books',this)">
+Books
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Notes',this)">
+Notes
 </button>
 
 <button
@@ -389,111 +402,136 @@ onclick="filterCategory('Class 12',this)">
 Class 12
 </button>
 
-<button
-class="category"
-onclick="filterCategory('Notes',this)">
-Notes
-</button>
-
-<button
-class="category"
-onclick="filterCategory('Other',this)">
-Other
-</button>
-
 </div>
 
+</section>
 
-<!-- ADMIN PANEL -->
-<section class="admin-panel" id="adminPanel">
 
-<h2>➕ Add New Resource</h2>
+<!-- ADD LINK -->
+<section class="admin" id="admin">
 
-<div class="form-group">
+<h2>➕ Add Resource Link</h2>
 
-<label>Title</label>
+<div class="group">
+
+<label>Resource Name</label>
 
 <input
-id="linkTitle"
-type="text"
-placeholder="Example: Physics Lecture 01"
->
+id="title"
+placeholder="Example: Physics Lecture">
 
 </div>
 
 
-<div class="form-group">
+<div class="group">
 
 <label>Description</label>
 
 <textarea
-id="linkDescription"
-placeholder="Enter resource description"
-></textarea>
+id="description"
+placeholder="Resource description">
+</textarea>
 
 </div>
 
 
-<div class="form-group">
+<div class="group">
 
 <label>Category</label>
 
-<select id="linkCategory">
+<select id="category">
 
-<option value="JEE">JEE</option>
-<option value="NEET">NEET</option>
-<option value="Class 11">Class 11</option>
-<option value="Class 12">Class 12</option>
-<option value="Notes">Notes</option>
-<option value="Other">Other</option>
+<option>JEE</option>
+<option>Books</option>
+<option>Notes</option>
+<option>Class 11</option>
+<option>Class 12</option>
 
 </select>
 
 </div>
 
 
-<div class="form-group">
+<div class="group">
 
-<label>Resource Link</label>
+<label>Link</label>
 
 <input
-id="linkURL"
+id="url"
 type="url"
-placeholder="https://example.com"
->
+placeholder="https://example.com">
 
 </div>
 
 
 <button
-class="save-btn"
-onclick="saveLink()">
-💾 Save Resource
+class="save"
+onclick="addLink()">
+
+💾 Add Resource
+
 </button>
 
 
 <button
-class="close-btn"
+class="close"
 onclick="toggleAdmin()">
+
 Close
+
 </button>
 
 </section>
 
 
-<!-- CONTENT -->
-<main class="container">
+<!-- RESOURCES -->
+<main
+class="container"
+id="resources">
 
 <h2 class="section-title">
-📚 ARCSTFUG Resources
+📚 Resources
 </h2>
 
 <div
 class="cards"
-id="linkContainer">
+id="cards">
 </div>
 
 </main>
+
+
+<!-- DOWNLOAD -->
+<section
+class="container"
+id="download">
+
+<h2 class="section-title">
+⬇️ Download
+</h2>
+
+<div class="card">
+
+<div class="icon">📱</div>
+
+<h3>ARCSTFUG App</h3>
+
+<p>
+Install ARCSTFUG on your mobile using
+the browser's Add to Home Screen option.
+</p>
+
+<button
+class="link-btn"
+onclick="installApp()">
+
+📲 Install App
+
+</button>
+
+</div>
+
+</section>
 
 
 <!-- FOOTER -->
@@ -512,492 +550,350 @@ Learn • Practice • Achieve
 </footer>
 
 
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+
+<div
+class="nav-item active"
+onclick="goHome(this)">
+
+<span>🏠</span>
+Home
+
+</div>
+
+
+<div
+class="nav-item"
+onclick="goResources(this)">
+
+<span>📚</span>
+Resources
+
+</div>
+
+
+<div
+class="nav-item"
+onclick="goDownload(this)">
+
+<span>⬇️</span>
+Download
+
+</div>
+
+</nav>
+
+
 <script>
 
-/* ===================================
-   DEFAULT RESOURCES
-=================================== */
+/* DEFAULT RESOURCES */
 
-const defaultLinks = [
+const defaultLinks=[
 
 {
 id:1,
-
 title:"🎓 EduVibe",
-
-description:
-"Open EduVibe educational platform.",
-
+description:"Open EduVibe educational platform.",
 category:"Other",
-
 url:"https://eduvibe-nt.pages.dev/"
 },
 
 {
 id:2,
-
-title:"JEE Main Official Website",
-
-description:
-"Official JEE Main information and updates.",
-
+title:"📚 Physics Resource",
+description:"Physics study resources.",
 category:"JEE",
-
-url:"https://jeemain.nta.nic.in/"
+url:"https://example.com/"
 },
 
 {
 id:3,
-
-title:"Physics Study Material",
-
-description:
-"Physics lectures and study resources.",
-
-category:"JEE",
-
-url:"https://example.com/"
-},
-
-{
-id:4,
-
-title:"Class 11 Study Material",
-
-description:
-"Useful Class 11 learning resources.",
-
-category:"Class 11",
-
-url:"https://example.com/"
-},
-
-{
-id:5,
-
-title:"Class 12 Notes",
-
-description:
-"Class 12 notes and study materials.",
-
+title:"📝 Class 12 Notes",
+description:"Class 12 study notes.",
 category:"Class 12",
-
 url:"https://example.com/"
 }
 
 ];
 
 
-/* ===================================
-   LOAD LOCAL DATA
-=================================== */
+/* LOAD */
 
-let savedLinks =
+let links=
 JSON.parse(
 localStorage.getItem("arcstfug_links")
 ) || defaultLinks;
 
-
 let currentCategory="All";
 
 
-/* ===================================
-   DISPLAY
-=================================== */
+/* DISPLAY */
 
 function displayLinks(){
 
-const container =
-document.getElementById("linkContainer");
+const cards=
+document.getElementById("cards");
 
-const search =
-document.getElementById("searchInput")
-.value
-.toLowerCase();
+const search=
+document.getElementById("search")
+.value.toLowerCase();
 
 
-const filtered =
-savedLinks.filter(item=>{
+const filtered=
+links.filter(item=>{
 
-const categoryMatch =
+const categoryOK=
 currentCategory==="All" ||
 item.category===currentCategory;
 
-
-const searchMatch =
+const searchOK=
 item.title.toLowerCase().includes(search) ||
+item.description.toLowerCase().includes(search);
 
-item.description
-.toLowerCase()
-.includes(search) ||
-
-item.category
-.toLowerCase()
-.includes(search);
-
-
-return categoryMatch && searchMatch;
+return categoryOK && searchOK;
 
 });
 
 
-container.innerHTML="";
-
-
-if(filtered.length===0){
-
-container.innerHTML=`
-
-<div class="empty">
-
-😕 No resource found.
-
-</div>
-
-`;
-
-return;
-
-}
+cards.innerHTML="";
 
 
 filtered.forEach(item=>{
 
-const card =
+const card=
 document.createElement("div");
 
 card.className="card";
 
-
 card.innerHTML=`
 
 <div class="icon">
-
 ${getIcon(item.category)}
-
 </div>
-
 
 <h3>
 ${escapeHTML(item.title)}
 </h3>
 
-
 <p>
 ${escapeHTML(item.description)}
 </p>
-
 
 <small>
 📁 ${escapeHTML(item.category)}
 </small>
 
-
 <br>
 
-
 <a
-class="open-btn"
+class="link-btn"
 href="${safeURL(item.url)}"
 target="_blank"
 rel="noopener noreferrer">
 
-🔗 Open
+🔗 Link
 
 </a>
 
-
-<button
-class="open-btn edit-btn"
-onclick="editLink(${item.id})">
-
-✏️
-
-</button>
-
-
-<button
-class="open-btn delete-btn"
-onclick="deleteLink(${item.id})">
-
-🗑️
-
-</button>
-
 `;
 
-
-container.appendChild(card);
+cards.appendChild(card);
 
 });
 
 }
 
 
-/* ===================================
-   ICON
-=================================== */
+/* ICON */
 
 function getIcon(category){
 
-if(category==="JEE")
-return "🎓";
-
-if(category==="NEET")
-return "🧬";
-
-if(category==="Class 11")
-return "📖";
-
-if(category==="Class 12")
-return "📚";
-
-if(category==="Notes")
-return "📝";
+if(category==="JEE") return "🎓";
+if(category==="Books") return "📚";
+if(category==="Notes") return "📝";
+if(category==="Class 11") return "📖";
+if(category==="Class 12") return "📕";
 
 return "🔗";
 
 }
 
 
-/* ===================================
-   ADMIN PANEL
-=================================== */
+/* ADD LINK */
 
-function toggleAdmin(){
+function addLink(){
 
-const panel =
-document.getElementById("adminPanel");
+const title=
+document.getElementById("title").value.trim();
 
+const description=
+document.getElementById("description").value.trim();
 
-if(panel.style.display==="block"){
+const category=
+document.getElementById("category").value;
 
-panel.style.display="none";
-
-}else{
-
-panel.style.display="block";
-
-panel.scrollIntoView({
-behavior:"smooth"
-});
-
-}
-
-}
-
-
-/* ===================================
-   SAVE
-=================================== */
-
-function saveLink(){
-
-const title =
-document.getElementById("linkTitle")
-.value.trim();
-
-
-const description =
-document.getElementById("linkDescription")
-.value.trim();
-
-
-const category =
-document.getElementById("linkCategory")
-.value;
-
-
-const url =
-document.getElementById("linkURL")
-.value.trim();
+const url=
+document.getElementById("url").value.trim();
 
 
 if(!title || !url){
 
-alert("Please enter Title and URL.");
+alert("Resource Name aur Link enter karein.");
 
 return;
 
 }
 
 
-if(!isValidURL(url)){
+if(!validURL(url)){
 
-alert("Please enter a valid HTTPS/HTTP URL.");
+alert("Valid HTTP/HTTPS link enter karein.");
 
 return;
 
 }
 
 
-const newLink={
+links.unshift({
 
 id:Date.now(),
-
 title:title,
-
 description:
-description ||
-"ARCSTFUG educational resource.",
-
+description || "ARCSTFUG Resource",
 category:category,
-
 url:url
 
-};
-
-
-savedLinks.unshift(newLink);
+});
 
 
 localStorage.setItem(
 "arcstfug_links",
-JSON.stringify(savedLinks)
+JSON.stringify(links)
 );
 
 
-document.getElementById("linkTitle").value="";
-document.getElementById("linkDescription").value="";
-document.getElementById("linkURL").value="";
+document.getElementById("title").value="";
+document.getElementById("description").value="";
+document.getElementById("url").value="";
 
 
 displayLinks();
 
-
-alert("✅ Resource added successfully!");
-
-}
-
-
-/* ===================================
-   EDIT
-=================================== */
-
-function editLink(id){
-
-const item =
-savedLinks.find(x=>x.id===id);
-
-
-if(!item)return;
-
-
-const title =
-prompt("New title:",item.title);
-
-
-if(title===null)return;
-
-
-const description =
-prompt(
-"New description:",
-item.description
-);
-
-
-if(description===null)return;
-
-
-const url =
-prompt("New URL:",item.url);
-
-
-if(url===null)return;
-
-
-if(!isValidURL(url)){
-
-alert("Invalid URL.");
-
-return;
+alert("✅ Resource added!");
 
 }
 
 
-item.title=title.trim();
+/* ADMIN */
 
-item.description=description.trim();
+function toggleAdmin(){
 
-item.url=url.trim();
+const admin=
+document.getElementById("admin");
 
-
-localStorage.setItem(
-"arcstfug_links",
-JSON.stringify(savedLinks)
-);
-
-
-displayLinks();
+admin.style.display=
+admin.style.display==="block"
+?"none"
+:"block";
 
 }
 
 
-/* ===================================
-   DELETE
-=================================== */
-
-function deleteLink(id){
-
-if(!confirm("Delete this resource?"))
-return;
-
-
-savedLinks =
-savedLinks.filter(
-item=>item.id!==id
-);
-
-
-localStorage.setItem(
-"arcstfug_links",
-JSON.stringify(savedLinks)
-);
-
-
-displayLinks();
-
-}
-
-
-/* ===================================
-   CATEGORY
-=================================== */
+/* CATEGORY */
 
 function filterCategory(category,button){
 
 currentCategory=category;
 
-
 document
 .querySelectorAll(".category")
-.forEach(btn=>{
-btn.classList.remove("active");
+.forEach(x=>{
+x.classList.remove("active");
 });
 
-
 button.classList.add("active");
-
 
 displayLinks();
 
 }
 
 
-/* ===================================
-   URL VALIDATION
-=================================== */
+/* NAVIGATION */
 
-function isValidURL(url){
+function goHome(btn){
+
+setActive(btn);
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function goResources(btn){
+
+setActive(btn);
+
+document
+.getElementById("resources")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function goDownload(btn){
+
+setActive(btn);
+
+document
+.getElementById("download")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function setActive(btn){
+
+document
+.querySelectorAll(".nav-item")
+.forEach(x=>{
+x.classList.remove("active");
+});
+
+btn.classList.add("active");
+
+}
+
+
+/* INSTALL */
+
+function installApp(){
+
+alert(
+"Chrome menu (⋮) → Add to Home screen → Install"
+);
+
+}
+
+
+/* URL */
+
+function validURL(url){
 
 try{
 
-const parsed=new URL(url);
+const u=new URL(url);
 
 return(
-parsed.protocol==="http:" ||
-parsed.protocol==="https:"
+u.protocol==="https:" ||
+u.protocol==="http:"
 );
 
 }catch{
@@ -1011,52 +907,47 @@ return false;
 
 function safeURL(url){
 
-return isValidURL(url)
+return validURL(url)
 ?url
 :"#";
 
 }
-Resource Name:
-irodov physics book
-
-Description:
-best book
-
-Category:
-JEE
-
-URL / Link:
-https://drive.google.com/drive/folders/1b6NLZ8RqrWKhngx99MGGQHfBheRRWTSN  
 
 
-/* ===================================
-   SECURITY
-=================================== */
+/* SECURITY */
 
 function escapeHTML(text){
 
 return String(text)
 
 .replace(/&/g,"&amp;")
-
 .replace(/</g,"&lt;")
-
 .replace(/>/g,"&gt;")
-
 .replace(/"/g,"&quot;")
-
 .replace(/'/g,"&#039;");
 
 }
 
 
-/* ===================================
-   START APP
-=================================== */
+/* START */
 
 displayLinks();
 
 </script>
 
 </body>
-  </html>
+  </html> footer>
+    <strong>🚀 ARCSTFUG APP</strong>
+
+    <p>
+        Learn • Practice • Achieve
+    </p>
+
+    <p>
+        Powered by <b>Abhishek Kumar & Aniruddh Mishra</b>
+    </p>
+
+    <p>
+        © 2026 ARCSTFUG
+    </p>
+</footer>
