@@ -1,48 +1,286 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study App</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; color: #333; }
-        header { background-color: #0d3b66; color: #fff; padding: 15px; text-align: center; font-size: 24px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .container { padding: 20px; max-width: 800px; margin: auto; }
-        .card { background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .card h2 { color: #f4a261; margin-bottom: 10px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .btn { background-color: #0d3b66; color: #fff; padding: 15px; text-align: center; border-radius: 10px; cursor: pointer; font-weight: bold; transition: background-color 0.3s; }
-        .btn:hover { background-color: #f4a261; }
-        ul { list-style: none; margin-top: 10px; }
-        li { padding: 10px; border-bottom: 1px solid #eee; }
-    </style>
-</head>
-<body>
-    <header>My Study App</header>
-    <div class="container">
-        <div class="card">
-            <h2>Live Classes</h2>
-            <p>Join today's scheduled live lectures and interact with teachers.</p>
-            <div style="margin-top: 15px;" class="btn">Join Live Class</div>
-        </div>
-        <div class="grid">
-            <div class="card">
-                <h2>My Courses</h2>
-                <ul>
-                    <li>Physics - Class 12</li>
-                    <li>Chemistry - Class 12</li>
-                    <li>Mathematics - Class 12</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h2>Recent Updates</h2>
-                <ul>
-                    <li>New DPP uploaded for Physics.</li>
-                    <li>Maths test schedule released.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+// =====================================================
+// ARCSTFUG STUDY MATERIAL SYSTEM
+// Google Drive + Google Sheets + Google Apps Script
+// =====================================================
+
+// ================= CONFIGURATION =================
+
+// Google Drive folder ID
+const FOLDER_ID = "PASTE_YOUR_DRIVE_FOLDER_ID_HERE";
+
+// Admin password
+// YAHAN APNA PASSWORD SET KARE
+const ADMIN_PASSWORD = "ARCSTFUG@2026";
+
+// Google Sheet tab name
+const SHEET_NAME = "Materials";
+
+
+// ================= WEB APP =================
+
+function doGet() {
+  return HtmlService
+    .createHtmlOutputFromFile("Index")
+    .setTitle("ARCSTFUG")
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+
+// ================= SHEET =================
+
+function getSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SHEET_NAME);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME);
+
+    sheet.appendRow([
+      "id",
+      "title",
+      "subject",
+      "fileName",
+      "fileId",
+      "url",
+      "createdAt"
+    ]);
+  }
+
+  return sheet;
+}
+
+
+// ================= ADMIN LOGIN =================
+
+function checkPassword(password) {
+
+  if (!password) {
+    return false;
+  }
+
+  return password === ADMIN_PASSWORD;
+}
+
+
+// ================= GET MATERIALS =================
+
+function getMaterials() {
+
+  const sheet = getSheet();
+
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow < 2) {
+    return [];
+  }
+
+  const data = sheet
+    .getRange(2, 1, lastRow - 1, 7)
+    .getValues();
+
+  return data.map(function(row) {
+
+    return {
+      id: row[0],
+      title: row[1],
+      subject: row[2],
+      fileName: row[3],
+      fileId: row[4],
+      url: row[5],
+      createdAt: row[6]
+        ? new Date(row[6]).toLocaleString()
+        : ""
+    };
+
+  });
+}
+
+
+// ================= UPLOAD PDF =================
+
+function uploadPDF(
+  filename,
+  base64Data,
+  title,
+  subject,
+  password
+) {
+
+  // Check admin password
+  if (password !== ADMIN_PASSWORD) {
+    throw new Error("Wrong admin password.");
+  }
+
+  // Required fields
+  if (!filename) {
+    throw new Error("PDF file is required.");
+  }
+
+  if (!base64Data) {
+    throw new Error("PDF data missing.");
+  }
+
+  if (!title) {
+    throw new Error("Material title is required.");
+  }
+
+  if (!subject) {
+    throw new Error("Subject is required.");
+  }
+
+
+  // Check PDF
+  const lowerName = filename.toLowerCase();
+
+  if (!lowerName.endsWith(".pdf")) {
+    throw new Error("Only PDF files are allowed.");
+  }
+
+
+  // Get Drive folder
+  const folder = DriveApp.getFolderById(FOLDER_ID);
+
+
+  // Decode Base64
+  const decoded = Utilities.base64Decode(base64Data);
+
+
+  // Create PDF blob
+  const blob = Utilities.newBlob(
+    decoded,
+    "application/pdf",
+    filename
+  );
+
+
+  // Create file
+  const file = folder.createFile(blob);
+
+
+  // Anyone with link can view
+  file.setSharing(
+    DriveApp.Access.ANYONE_WITH_LINK,
+    DriveApp.Permission.VIEW
+  );
+
+
+  // File information
+  const fileId = file.getId();
+
+  const fileUrl =
+    "https://drive.google.com/file/d/" +
+    fileId +
+    "/view";
+
+
+  // Sheet
+  const sheet = getSheet();
+
+
+  // Unique ID
+  const id =
+    new Date().getTime().toString();
+
+
+  // Add data
+  sheet.appendRow([
+    id,
+    title,
+    subject,
+    filename,
+    fileId,
+    fileUrl,
+    new Date()
+  ]);
+
+
+  return {
+    success: true,
+    id: id,
+    title: title,
+    subject: subject,
+    fileName: filename,
+    fileId: fileId,
+    url: fileUrl
+  };
+}
+
+
+// ================= DELETE MATERIAL =================
+
+function deleteMaterial(
+  id,
+  fileId,
+  password
+) {
+
+  // Check password
+  if (password !== ADMIN_PASSWORD) {
+    throw new Error("Wrong admin password.");
+  }
+
+
+  // Delete Drive file
+  if (fileId) {
+
+    try {
+
+      const file =
+        DriveApp.getFileById(fileId);
+
+      file.setTrashed(true);
+
+    } catch (error) {
+
+      // File already deleted
+      console.log(error);
+
+    }
+  }
+
+
+  // Delete Sheet row
+  const sheet = getSheet();
+
+  const lastRow = sheet.getLastRow();
+
+  if (lastRow < 2) {
+    return true;
+  }
+
+
+  const data =
+    sheet
+      .getRange(2, 1, lastRow - 1, 7)
+      .getValues();
+
+
+  for (let i = 0; i < data.length; i++) {
+
+    if (String(data[i][0]) === String(id)) {
+
+      sheet.deleteRow(i + 2);
+
+      break;
+    }
+  }
+
+
+  return true;
+}
+
+
+// ================= TEST FUNCTION =================
+
+function testSystem() {
+
+  const sheet = getSheet();
+
+  Logger.log(
+    "ARCSTFUG System Working"
+  );
+
+  Logger.log(
+    "Sheet: " + sheet.getName()
+  );
+}
