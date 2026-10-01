@@ -1,861 +1,1049 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCSTFUG APP</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
+<title>ARCSTFUG App</title>
 
-    body {
-      background: #f5f7fb;
-      color: #172033;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,Helvetica,sans-serif;
+}
 
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed);
-      color: white;
-      padding: 16px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 3px 12px rgba(0,0,0,.15);
-    }
+body{
+  background:#f4f6fb;
+  color:#172033;
+}
 
-    .header-content {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#4f46e5,#7c3aed);
+  color:white;
+  padding:15px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 3px 15px #0002;
+}
 
-    .logo {
-      font-size: 23px;
-      font-weight: bold;
-    }
+.navbar{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .logo span {
-      display: block;
-      font-size: 11px;
-      opacity: .85;
-      margin-top: 3px;
-    }
+.logo{
+  font-size:23px;
+  font-weight:bold;
+}
 
-    .admin-btn {
-      border: none;
-      background: white;
-      color: #5b21b6;
-      padding: 10px 15px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.logo small{
+  display:block;
+  font-size:11px;
+  opacity:.85;
+  margin-top:3px;
+}
 
-    /* HERO */
-    .hero {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 35px 25px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #111827, #312e81);
-      color: white;
-    }
+.admin-btn{
+  border:0;
+  background:white;
+  color:#4f46e5;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    .hero h1 {
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
+/* HERO */
+.hero{
+  max-width:1100px;
+  margin:20px auto;
+  padding:35px 25px;
+  border-radius:20px;
+  color:white;
+  background:linear-gradient(135deg,#111827,#3730a3);
+}
 
-    .hero p {
-      color: #dbeafe;
-      line-height: 1.6;
-    }
+.hero h1{
+  font-size:32px;
+  margin-bottom:10px;
+}
 
-    /* SEARCH */
-    .search-box {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 0 5px;
-    }
+.hero p{
+  line-height:1.6;
+  color:#dbeafe;
+}
 
-    .search-box input {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      outline: none;
-      font-size: 15px;
-    }
+/* SEARCH */
+.search{
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 5px;
+}
 
-    /* CATEGORY */
-    .categories {
-      max-width: 1100px;
-      margin: 20px auto;
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 5px;
-    }
+.search input{
+  width:100%;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:12px;
+  font-size:15px;
+  outline:none;
+}
 
-    .category {
-      white-space: nowrap;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 20px;
-      background: white;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
+/* CATEGORY */
+.categories{
+  max-width:1100px;
+  margin:20px auto;
+  padding:5px;
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+}
 
-    .category.active {
-      background: #4f46e5;
-      color: white;
-    }
+.category{
+  border:0;
+  padding:10px 17px;
+  border-radius:20px;
+  background:white;
+  white-space:nowrap;
+  cursor:pointer;
+  box-shadow:0 2px 8px #0001;
+}
 
-    /* CONTENT */
-    .container {
-      max-width: 1100px;
-      margin: 25px auto;
-      padding: 0 5px;
-    }
+.category.active{
+  background:#4f46e5;
+  color:white;
+}
 
-    .section-title {
-      margin-bottom: 15px;
-      font-size: 22px;
-    }
+/* MAIN */
+.container{
+  max-width:1100px;
+  margin:25px auto;
+  padding:0 5px;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
+.section-title{
+  margin-bottom:18px;
+  font-size:23px;
+}
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 5px 18px rgba(0,0,0,.08);
-      transition: .2s;
-    }
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
 
-    .card:hover {
-      transform: translateY(-3px);
-    }
+.card{
+  background:white;
+  padding:20px;
+  border-radius:17px;
+  box-shadow:0 5px 18px #0001;
+}
 
-    .icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 13px;
-      background: #ede9fe;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      margin-bottom: 14px;
-    }
+.icon{
+  width:50px;
+  height:50px;
+  background:#ede9fe;
+  border-radius:14px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:25px;
+  margin-bottom:14px;
+}
 
-    .card h3 {
-      margin-bottom: 8px;
-    }
+.card h3{
+  margin-bottom:8px;
+}
 
-    .card p {
-      color: #667085;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 15px;
-    }
+.card p{
+  color:#667085;
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:12px;
+}
 
-    .open-btn {
-      display: inline-block;
-      text-decoration: none;
-      background: #4f46e5;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 9px;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-    }
+.card small{
+  color:#667085;
+}
 
-    .edit-btn {
-      background: #f59e0b;
-      margin-left: 5px;
-    }
+/* BUTTONS */
+.open-btn{
+  display:inline-block;
+  text-decoration:none;
+  border:0;
+  background:#4f46e5;
+  color:white;
+  padding:10px 14px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:bold;
+  margin-top:12px;
+}
 
-    .delete-btn {
-      background: #ef4444;
-      margin-left: 5px;
-    }
+.edit-btn{
+  background:#f59e0b;
+}
 
-    /* ADMIN PANEL */
-    .admin-panel {
-      display: none;
-      max-width: 700px;
-      margin: 25px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 18px;
-      box-shadow: 0 5px 20px rgba(0,0,0,.1);
-    }
+.delete-btn{
+  background:#ef4444;
+}
 
-    .admin-panel h2 {
-      margin-bottom: 18px;
-    }
+/* ADMIN */
+.admin-panel{
+  display:none;
+  max-width:700px;
+  margin:25px auto;
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 5px 20px #0002;
+}
 
-    .form-group {
-      margin-bottom: 14px;
-    }
+.admin-panel h2{
+  margin-bottom:18px;
+}
 
-    .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: bold;
-      font-size: 14px;
-    }
+.form-group{
+  margin-bottom:15px;
+}
 
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d0d5dd;
-      border-radius: 9px;
-      outline: none;
-      font-size: 14px;
-    }
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+  font-size:14px;
+}
 
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  padding:12px;
+  border:1px solid #d0d5dd;
+  border-radius:9px;
+  outline:none;
+}
 
-    .save-btn {
-      width: 100%;
-      padding: 13px;
-      border: none;
-      border-radius: 10px;
-      background: #16a34a;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.form-group textarea{
+  min-height:80px;
+  resize:vertical;
+}
 
-    .close-btn {
-      width: 100%;
-      margin-top: 8px;
-      padding: 11px;
-      border: none;
-      border-radius: 10px;
-      background: #e5e7eb;
-      cursor: pointer;
-    }
+.save-btn{
+  width:100%;
+  border:0;
+  padding:13px;
+  border-radius:10px;
+  background:#16a34a;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
 
-    /* FOOTER */
-    footer {
-      margin-top: 40px;
-      padding: 25px;
-      text-align: center;
-      background: #111827;
-      color: white;
-    }
+.close-btn{
+  width:100%;
+  margin-top:8px;
+  border:0;
+  padding:11px;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-    footer p {
-      color: #cbd5e1;
-      margin-top: 5px;
-      font-size: 13px;
-    }
+/* FOOTER */
+footer{
+  margin-top:40px;
+  padding:30px;
+  text-align:center;
+  background:#111827;
+  color:white;
+}
 
-    .empty {
-      text-align: center;
-      padding: 30px;
-      color: #667085;
-      grid-column: 1/-1;
-    }
+footer p{
+  margin-top:6px;
+  color:#cbd5e1;
+  font-size:13px;
+}
 
-    @media(max-width:600px) {
-      .hero h1 {
-        font-size: 25px;
-      }
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:40px;
+  color:#667085;
+}
 
-      .header-content {
-        flex-direction: row;
-      }
+/* MOBILE */
+@media(max-width:600px){
 
-      .admin-btn {
-        padding: 8px 10px;
-        font-size: 12px;
-      }
-    }
-  </style>
+  .hero{
+    margin:12px;
+    padding:28px 20px;
+  }
+
+  .hero h1{
+    font-size:26px;
+  }
+
+  .container,
+  .search,
+  .categories{
+    margin-left:12px;
+    margin-right:12px;
+  }
+
+  .logo{
+    font-size:20px;
+  }
+
+  .admin-btn{
+    font-size:12px;
+    padding:9px;
+  }
+}
+</style>
 </head>
 
 <body>
 
 <!-- HEADER -->
 <header>
-  <div class="header-content">
-    <div class="logo">
-      🚀 ARCSTFUG
-      <span>Education & Learning App</span>
-    </div>
 
-    <button class="admin-btn" onclick="toggleAdmin()">
-      ⚙️ Add Link
-    </button>
-  </div>
+<div class="navbar">
+
+<div class="logo">
+🚀 ARCSTFUG
+<small>Education & Learning App</small>
+</div>
+
+<button class="admin-btn" onclick="toggleAdmin()">
+⚙️ Add Link
+</button>
+
+</div>
+
 </header>
 
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Welcome to ARCSTFUG</h1>
-  <p>
-    Learn, watch lectures, access study materials and explore useful
-    educational resources in one place.
-  </p>
+
+<h1>Welcome to ARCSTFUG 👋</h1>
+
+<p>
+Your educational hub for lectures, courses, notes,
+study materials and useful learning resources.
+</p>
+
 </section>
 
 
 <!-- SEARCH -->
-<div class="search-box">
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="🔍 Search courses, lectures, notes..."
-    oninput="searchLinks()"
-  >
+<div class="search">
+
+<input
+type="text"
+id="searchInput"
+placeholder="🔍 Search lectures, courses, notes..."
+oninput="displayLinks()"
+>
+
 </div>
 
 
-<!-- CATEGORY -->
+<!-- CATEGORIES -->
 <div class="categories">
-  <button class="category active" onclick="filterCategory('All', this)">All</button>
-  <button class="category" onclick="filterCategory('JEE', this)">JEE</button>
-  <button class="category" onclick="filterCategory('NEET', this)">NEET</button>
-  <button class="category" onclick="filterCategory('Class 11', this)">Class 11</button>
-  <button class="category" onclick="filterCategory('Class 12', this)">Class 12</button>
-  <button class="category" onclick="filterCategory('Notes', this)">Notes</button>
-  <button class="category" onclick="filterCategory('Other', this)">Other</button>
+
+<button
+class="category active"
+onclick="filterCategory('All',this)">
+All
+</button>
+
+<button
+class="category"
+onclick="filterCategory('JEE',this)">
+JEE
+</button>
+
+<button
+class="category"
+onclick="filterCategory('NEET',this)">
+NEET
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Class 11',this)">
+Class 11
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Class 12',this)">
+Class 12
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Notes',this)">
+Notes
+</button>
+
+<button
+class="category"
+onclick="filterCategory('Other',this)">
+Other
+</button>
+
 </div>
 
 
 <!-- ADMIN PANEL -->
 <section class="admin-panel" id="adminPanel">
 
-  <h2>➕ Add New Link</h2>
+<h2>➕ Add New Resource</h2>
 
-  <div class="form-group">
-    <label>Title</label>
-    <input
-      type="nexttopers"
-      id="https://eduvibe-nt.pages.dev/"
-      placeholder="Example: Physics Lecture 01"
-    >
-  </div>
+<div class="form-group">
 
-  <div class="form-group">
-    <label>Description</label>
-    <textarea
-      id="linkDescription"
-      placeholder="Enter lecture or material description"
-    ></textarea>
-  </div>
+<label>Title</label>
 
-  <div class="form-group">
-    <label>Category</label>
+<input
+id="linkTitle"
+type="text"
+placeholder="Example: Physics Lecture 01"
+>
 
-    <select id="linkCategory">
-      <option value="JEE">JEE</option>
-      <option value="NEET">NEET</option>
-      <option value="Class 11">Class 11</option>
-      <option value="Class 12">Class 12</option>
-      <option value="Notes">Notes</option>
-      <option value="Other">Other</option>
-    </select>
-  </div>
+</div>
 
-  <div class="form-group">
-    <label>Link / URL</label>
-    <input
-      type="url"
-      id="linkURL"
-      placeholder="https://example.com/lecture"
-    >
-  </div>
 
-  <button class="save-btn" onclick="saveLink()">
-    💾 Save Link
-  </button>
+<div class="form-group">
 
-  <button class="close-btn" onclick="toggleAdmin()">
-    Close
-  </button>
+<label>Description</label>
+
+<textarea
+id="linkDescription"
+placeholder="Enter resource description"
+></textarea>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Category</label>
+
+<select id="linkCategory">
+
+<option value="JEE">JEE</option>
+<option value="NEET">NEET</option>
+<option value="Class 11">Class 11</option>
+<option value="Class 12">Class 12</option>
+<option value="Notes">Notes</option>
+<option value="Other">Other</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>Resource Link</label>
+
+<input
+id="linkURL"
+type="url"
+placeholder="https://example.com"
+>
+
+</div>
+
+
+<button
+class="save-btn"
+onclick="saveLink()">
+💾 Save Resource
+</button>
+
+
+<button
+class="close-btn"
+onclick="toggleAdmin()">
+Close
+</button>
 
 </section>
 
 
-<!-- MAIN CONTENT -->
+<!-- CONTENT -->
 <main class="container">
 
-  <h2 class="section-title">📚 Study Materials</h2>
+<h2 class="section-title">
+📚 ARCSTFUG Resources
+</h2>
 
-  <div class="cards" id="linkContainer"></div>
+<div
+class="cards"
+id="linkContainer">
+</div>
 
 </main>
 
 
 <!-- FOOTER -->
 <footer>
-  <strong>🚀 ARCSTFUG APP</strong>
-  <p>Learn • Practice • Achieve</p>
-  <p>© 2026 ARCSTFUG. All Rights Reserved.</p>
+
+<strong>🚀 ARCSTFUG APP</strong>
+
+<p>
+Learn • Practice • Achieve
+</p>
+
+<p>
+© 2026 ARCSTFUG
+</p>
+
 </footer>
 
 
 <script>
 
-  /* --------------------------------
-     DEFAULT LINKS
-  -------------------------------- */
+/* ===================================
+   DEFAULT RESOURCES
+=================================== */
 
-  const defaultLinks = [
-    {
-      id: 1,
-      title: "JEE Preparation",
-      description: "JEE preparation resources and useful study materials.",
-      category: "JEE",
-      url: "https://www.jeemain.nta.nic.in/"
-    },
-    {
-      id: 2,
-      title: "Physics Study Material",
-      description: "Physics lectures and study resources.",
-      category: "JEE",
-      url: "https://example.com/"
-    },
-    {
-      id: 3,
-      title: "Class 11 Notes",
-      description: "Class 11 educational notes and resources.",
-      category: "Class 11",
-      url: "https://example.com/"
-    }
-  ];
+const defaultLinks = [
 
+{
+id:1,
 
-  /* --------------------------------
-     LOAD DATA
-  -------------------------------- */
+title:"🎓 EduVibe",
 
-  let savedLinks =
-    JSON.parse(localStorage.getItem("arcstfug_links")) || defaultLinks;
+description:
+"Open EduVibe educational platform.",
 
-  let currentCategory = "All";
+category:"Other",
 
+url:"https://eduvibe-nt.pages.dev/"
+},
 
-  /* --------------------------------
-     DISPLAY LINKS
-  -------------------------------- */
+{
+id:2,
 
-  function displayLinks() {
+title:"JEE Main Official Website",
 
-    const container =
-      document.getElementById("linkContainer");
+description:
+"Official JEE Main information and updates.",
 
-    const search =
-      document.getElementById("searchInput")
-      .value
-      .toLowerCase();
+category:"JEE",
 
-    let filtered = savedLinks.filter(item => {
+url:"https://jeemain.nta.nic.in/"
+},
 
-      const categoryMatch =
-        currentCategory === "All" ||
-        item.category === currentCategory;
+{
+id:3,
 
-      const searchMatch =
-        item.title.toLowerCase().includes(search) ||
-        item.description.toLowerCase().includes(search) ||
-        item.category.toLowerCase().includes(search);
+title:"Physics Study Material",
 
-      return categoryMatch && searchMatch;
-    });
+description:
+"Physics lectures and study resources.",
 
+category:"JEE",
 
-    container.innerHTML = "";
+url:"https://example.com/"
+},
 
+{
+id:4,
 
-    if (filtered.length === 0) {
+title:"Class 11 Study Material",
 
-      container.innerHTML = `
-        <div class="empty">
-          😕 No material found.
-        </div>
-      `;
+description:
+"Useful Class 11 learning resources.",
 
-      return;
-    }
+category:"Class 11",
 
+url:"https://example.com/"
+},
 
-    filtered.forEach(item => {
+{
+id:5,
 
-      const card = document.createElement("div");
+title:"Class 12 Notes",
 
-      card.className = "card";
+description:
+"Class 12 notes and study materials.",
 
-      card.innerHTML = `
+category:"Class 12",
 
-        <div class="icon">
-          ${getIcon(item.category)}
-        </div>
+url:"https://example.com/"
+}
 
-        <h3>${escapeHTML(item.title)}</h3>
+];
 
-        <p>
-          ${escapeHTML(item.description)}
-        </p>
 
-        <small>
-          📁 ${escapeHTML(item.category)}
-        </small>
+/* ===================================
+   LOAD LOCAL DATA
+=================================== */
 
-        <br><br>
+let savedLinks =
+JSON.parse(
+localStorage.getItem("arcstfug_links")
+) || defaultLinks;
 
-        <a
-          class="open-btn"
-          href="${safeURL(item.url)}"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          🔗 Open
-        </a>
 
-        <button
-          class="open-btn edit-btn"
-          onclick="editLink(${item.id})"
-        >
-          ✏️
-        </button>
+let currentCategory="All";
 
-        <button
-          class="open-btn delete-btn"
-          onclick="deleteLink(${item.id})"
-        >
-          🗑️
-        </button>
 
-      `;
+/* ===================================
+   DISPLAY
+=================================== */
 
-      container.appendChild(card);
+function displayLinks(){
 
-    });
-  }
+const container =
+document.getElementById("linkContainer");
 
+const search =
+document.getElementById("searchInput")
+.value
+.toLowerCase();
 
-  /* --------------------------------
-     ICON
-  -------------------------------- */
 
-  function getIcon(category) {
+const filtered =
+savedLinks.filter(item=>{
 
-    if (category === "JEE") return "🎓";
-    if (category === "NEET") return "🧬";
-    if (category === "Class 11") return "📖";
-    if (category === "Class 12") return "📚";
-    if (category === "Notes") return "📝";
+const categoryMatch =
+currentCategory==="All" ||
+item.category===currentCategory;
 
-    return "🔗";
-  }
 
+const searchMatch =
+item.title.toLowerCase().includes(search) ||
 
-  /* --------------------------------
-     ADMIN PANEL
-  -------------------------------- */
+item.description
+.toLowerCase()
+.includes(search) ||
 
-  function toggleAdmin() {
+item.category
+.toLowerCase()
+.includes(search);
 
-    const panel =
-      document.getElementById("adminPanel");
 
-    if (panel.style.display === "block") {
+return categoryMatch && searchMatch;
 
-      panel.style.display = "none";
+});
 
-    } else {
 
-      panel.style.display = "block";
+container.innerHTML="";
 
-      window.scrollTo({
-        top: panel.offsetTop - 80,
-        behavior: "smooth"
-      });
 
-    }
-  }
+if(filtered.length===0){
 
+container.innerHTML=`
 
-  /* --------------------------------
-     SAVE LINK
-  -------------------------------- */
+<div class="empty">
 
-  function saveLink() {
+😕 No resource found.
 
-    const title =
-      document.getElementById("linkTitle").value.trim();
+</div>
 
-    const description =
-      document.getElementById("linkDescription").value.trim();
+`;
 
-    const category =
-      document.getElementById("linkCategory").value;
+return;
 
-    const url =
-      document.getElementById("linkURL").value.trim();
+}
 
 
-    if (!title || !url) {
+filtered.forEach(item=>{
 
-      alert("Please enter Title and URL.");
+const card =
+document.createElement("div");
 
-      return;
-    }
+card.className="card";
 
 
-    if (!isValidURL(url)) {
+card.innerHTML=`
 
-      alert("Please enter a valid http/https URL.");
+<div class="icon">
 
-      return;
-    }
+${getIcon(item.category)}
 
+</div>
 
-    const newLink = {
 
-      id: Date.now(),
+<h3>
+${escapeHTML(item.title)}
+</h3>
 
-      title: title,
 
-      description:
-        description || "ARCSTFUG educational resource.",
+<p>
+${escapeHTML(item.description)}
+</p>
 
-      category: category,
 
-      url: url
+<small>
+📁 ${escapeHTML(item.category)}
+</small>
 
-    };
 
+<br>
 
-    savedLinks.unshift(newLink);
 
+<a
+class="open-btn"
+href="${safeURL(item.url)}"
+target="_blank"
+rel="noopener noreferrer">
 
-    localStorage.setItem(
-      "arcstfug_links",
-      JSON.stringify(savedLinks)
-    );
+🔗 Open
 
+</a>
 
-    document.getElementById("linkTitle").value = "";
-    document.getElementById("linkDescription").value = "";
-    document.getElementById("linkURL").value = "";
 
+<button
+class="open-btn edit-btn"
+onclick="editLink(${item.id})">
 
-    displayLinks();
+✏️
 
-    alert("✅ Link successfully added!");
+</button>
 
-  }
 
+<button
+class="open-btn delete-btn"
+onclick="deleteLink(${item.id})">
 
-  /* --------------------------------
-     EDIT LINK
-  -------------------------------- */
+🗑️
 
-  function editLink(id) {
+</button>
 
-    const item =
-      savedLinks.find(x => x.id === id);
+`;
 
-    if (!item) return;
 
+container.appendChild(card);
 
-    const title =
-      prompt("Enter new title:", item.title);
+});
 
-    if (title === null) return;
+}
 
 
-    const description =
-      prompt(
-        "Enter new description:",
-        item.description
-      );
+/* ===================================
+   ICON
+=================================== */
 
-    if (description === null) return;
+function getIcon(category){
 
+if(category==="JEE")
+return "🎓";
 
-    const url =
-      prompt("Enter new URL:", item.url);
+if(category==="NEET")
+return "🧬";
 
-    if (url === null) return;
+if(category==="Class 11")
+return "📖";
 
+if(category==="Class 12")
+return "📚";
 
-    if (!isValidURL(url)) {
+if(category==="Notes")
+return "📝";
 
-      alert("Invalid URL.");
+return "🔗";
 
-      return;
-    }
+}
 
 
-    item.title = title.trim();
-    item.description = description.trim();
-    item.url = url.trim();
+/* ===================================
+   ADMIN PANEL
+=================================== */
 
+function toggleAdmin(){
 
-    localStorage.setItem(
-      "arcstfug_links",
-      JSON.stringify(savedLinks)
-    );
+const panel =
+document.getElementById("adminPanel");
 
 
-    displayLinks();
+if(panel.style.display==="block"){
 
-  }
+panel.style.display="none";
 
+}else{
 
-  /* --------------------------------
-     DELETE LINK
-  -------------------------------- */
+panel.style.display="block";
 
-  function deleteLink(id) {
+panel.scrollIntoView({
+behavior:"smooth"
+});
 
-    const confirmDelete =
-      confirm("Delete this link?");
+}
 
-    if (!confirmDelete) return;
+}
 
 
-    savedLinks =
-      savedLinks.filter(item => item.id !== id);
+/* ===================================
+   SAVE
+=================================== */
 
+function saveLink(){
 
-    localStorage.setItem(
-      "arcstfug_links",
-      JSON.stringify(savedLinks)
-    );
+const title =
+document.getElementById("linkTitle")
+.value.trim();
 
 
-    displayLinks();
+const description =
+document.getElementById("linkDescription")
+.value.trim();
 
-  }
 
+const category =
+document.getElementById("linkCategory")
+.value;
 
-  /* --------------------------------
-     CATEGORY FILTER
-  -------------------------------- */
 
-  function filterCategory(category, button) {
+const url =
+document.getElementById("linkURL")
+.value.trim();
 
-    currentCategory = category;
 
+if(!title || !url){
 
-    document
-      .querySelectorAll(".category")
-      .forEach(btn => {
+alert("Please enter Title and URL.");
 
-        btn.classList.remove("active");
+return;
 
-      });
+}
 
 
-    button.classList.add("active");
+if(!isValidURL(url)){
 
+alert("Please enter a valid HTTPS/HTTP URL.");
 
-    displayLinks();
+return;
 
-  }
+}
 
 
-  /* --------------------------------
-     SEARCH
-  -------------------------------- */
+const newLink={
 
-  function searchLinks() {
+id:Date.now(),
 
-    displayLinks();
+title:title,
 
-  }
+description:
+description ||
+"ARCSTFUG educational resource.",
 
+category:category,
 
-  /* --------------------------------
-     URL VALIDATION
-  -------------------------------- */
+url:url
 
-  function isValidURL(url) {
+};
 
-    try {
 
-      const parsed =
-        new URL(url);
+savedLinks.unshift(newLink);
 
-      return (
-        parsed.protocol === "http:" ||
-        parsed.protocol === "https:"
-      );
 
-    } catch {
+localStorage.setItem(
+"arcstfug_links",
+JSON.stringify(savedLinks)
+);
 
-      return false;
 
-    }
+document.getElementById("linkTitle").value="";
+document.getElementById("linkDescription").value="";
+document.getElementById("linkURL").value="";
 
-  }
 
+displayLinks();
 
-  function safeURL(url) {
 
-    return isValidURL(url)
-      ? url
-      : "#";
+alert("✅ Resource added successfully!");
 
-  }
+}
 
 
-  /* --------------------------------
-     HTML ESCAPE
-  -------------------------------- */
+/* ===================================
+   EDIT
+=================================== */
 
-  function escapeHTML(text) {
+function editLink(id){
 
-    return String(text)
+const item =
+savedLinks.find(x=>x.id===id);
 
-      .replace(/&/g, "&amp;")
 
-      .replace(/</g, "&lt;")
+if(!item)return;
 
-      .replace(/>/g, "&gt;")
 
-      .replace(/"/g, "&quot;")
+const title =
+prompt("New title:",item.title);
 
-      .replace(/'/g, "&#039;");
 
-  }
+if(title===null)return;
 
 
-  /* --------------------------------
-     INITIAL LOAD
-  -------------------------------- */
+const description =
+prompt(
+"New description:",
+item.description
+);
 
-  displayLinks();
+
+if(description===null)return;
+
+
+const url =
+prompt("New URL:",item.url);
+
+
+if(url===null)return;
+
+
+if(!isValidURL(url)){
+
+alert("Invalid URL.");
+
+return;
+
+}
+
+
+item.title=title.trim();
+
+item.description=description.trim();
+
+item.url=url.trim();
+
+
+localStorage.setItem(
+"arcstfug_links",
+JSON.stringify(savedLinks)
+);
+
+
+displayLinks();
+
+}
+
+
+/* ===================================
+   DELETE
+=================================== */
+
+function deleteLink(id){
+
+if(!confirm("Delete this resource?"))
+return;
+
+
+savedLinks =
+savedLinks.filter(
+item=>item.id!==id
+);
+
+
+localStorage.setItem(
+"arcstfug_links",
+JSON.stringify(savedLinks)
+);
+
+
+displayLinks();
+
+}
+
+
+/* ===================================
+   CATEGORY
+=================================== */
+
+function filterCategory(category,button){
+
+currentCategory=category;
+
+
+document
+.querySelectorAll(".category")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+
+button.classList.add("active");
+
+
+displayLinks();
+
+}
+
+
+/* ===================================
+   URL VALIDATION
+=================================== */
+
+function isValidURL(url){
+
+try{
+
+const parsed=new URL(url);
+
+return(
+parsed.protocol==="http:" ||
+parsed.protocol==="https:"
+);
+
+}catch{
+
+return false;
+
+}
+
+}
+
+
+function safeURL(url){
+
+return isValidURL(url)
+?url
+:"#";
+
+}
+
+
+/* ===================================
+   SECURITY
+=================================== */
+
+function escapeHTML(text){
+
+return String(text)
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* ===================================
+   START APP
+=================================== */
+
+displayLinks();
 
 </script>
 
