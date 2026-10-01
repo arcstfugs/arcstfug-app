@@ -1,286 +1,863 @@
-// =====================================================
-// ARCSTFUG STUDY MATERIAL SYSTEM
-// Google Drive + Google Sheets + Google Apps Script
-// =====================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCSTFUG APP</title>
 
-// ================= CONFIGURATION =================
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-// Google Drive folder ID
-const FOLDER_ID = "PASTE_YOUR_DRIVE_FOLDER_ID_HERE";
+    body {
+      background: #f5f7fb;
+      color: #172033;
+    }
 
-// Admin password
-// YAHAN APNA PASSWORD SET KARE
-const ADMIN_PASSWORD = "ARCSTFUG@2026";
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 12px rgba(0,0,0,.15);
+    }
 
-// Google Sheet tab name
-const SHEET_NAME = "Materials";
+    .header-content {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 11px;
+      opacity: .85;
+      margin-top: 3px;
+    }
+
+    .admin-btn {
+      border: none;
+      background: white;
+      color: #5b21b6;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 35px 25px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #111827, #312e81);
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: #dbeafe;
+      line-height: 1.6;
+    }
+
+    /* SEARCH */
+    .search-box {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 5px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    /* CATEGORY */
+    .categories {
+      max-width: 1100px;
+      margin: 20px auto;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 5px;
+    }
+
+    .category {
+      white-space: nowrap;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 20px;
+      background: white;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+
+    .category.active {
+      background: #4f46e5;
+      color: white;
+    }
+
+    /* CONTENT */
+    .container {
+      max-width: 1100px;
+      margin: 25px auto;
+      padding: 0 5px;
+    }
+
+    .section-title {
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 5px 18px rgba(0,0,0,.08);
+      transition: .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 13px;
+      background: #ede9fe;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: #667085;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .open-btn {
+      display: inline-block;
+      text-decoration: none;
+      background: #4f46e5;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 9px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background: #f59e0b;
+      margin-left: 5px;
+    }
+
+    .delete-btn {
+      background: #ef4444;
+      margin-left: 5px;
+    }
+
+    /* ADMIN PANEL */
+    .admin-panel {
+      display: none;
+      max-width: 700px;
+      margin: 25px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.1);
+    }
+
+    .admin-panel h2 {
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .save-btn {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: #16a34a;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 11px;
+      border: none;
+      border-radius: 10px;
+      background: #e5e7eb;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 40px;
+      padding: 25px;
+      text-align: center;
+      background: #111827;
+      color: white;
+    }
+
+    footer p {
+      color: #cbd5e1;
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #667085;
+      grid-column: 1/-1;
+    }
+
+    @media(max-width:600px) {
+      .hero h1 {
+        font-size: 25px;
+      }
+
+      .header-content {
+        flex-direction: row;
+      }
+
+      .admin-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-content">
+    <div class="logo">
+      🚀 ARCSTFUG
+      <span>Education & Learning App</span>
+    </div>
+
+    <button class="admin-btn" onclick="toggleAdmin()">
+      ⚙️ Add Link
+    </button>
+  </div>
+</header>
 
 
-// ================= WEB APP =================
+<!-- HERO -->
+<section class="hero">
+  <h1>Welcome to ARCSTFUG</h1>
+  <p>
+    Learn, watch lectures, access study materials and explore useful
+    educational resources in one place.
+  </p>
+</section>
 
-function doGet() {
-  return HtmlService
-    .createHtmlOutputFromFile("Index")
-    .setTitle("ARCSTFUG")
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-}
+
+<!-- SEARCH -->
+<div class="search-box">
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="🔍 Search courses, lectures, notes..."
+    oninput="searchLinks()"
+  >
+</div>
 
 
-// ================= SHEET =================
+<!-- CATEGORY -->
+<div class="categories">
+  <button class="category active" onclick="filterCategory('All', this)">All</button>
+  <button class="category" onclick="filterCategory('JEE', this)">JEE</button>
+  <button class="category" onclick="filterCategory('NEET', this)">NEET</button>
+  <button class="category" onclick="filterCategory('Class 11', this)">Class 11</button>
+  <button class="category" onclick="filterCategory('Class 12', this)">Class 12</button>
+  <button class="category" onclick="filterCategory('Notes', this)">Notes</button>
+  <button class="category" onclick="filterCategory('Other', this)">Other</button>
+</div>
 
-function getSheet() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName(SHEET_NAME);
 
-  if (!sheet) {
-    sheet = ss.insertSheet(SHEET_NAME);
+<!-- ADMIN PANEL -->
+<section class="admin-panel" id="adminPanel">
 
-    sheet.appendRow([
-      "id",
-      "title",
-      "subject",
-      "fileName",
-      "fileId",
-      "url",
-      "createdAt"
-    ]);
+  <h2>➕ Add New Link</h2>
+
+  <div class="form-group">
+    <label>Title</label>
+    <input
+      type="text"
+      id="linkTitle"
+      placeholder="Example: Physics Lecture 01"
+    >
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea
+      id="linkDescription"
+      placeholder="Enter lecture or material description"
+    ></textarea>
+  </div>
+
+  <div class="form-group">
+    <label>Category</label>
+
+    <select id="linkCategory">
+      <option value="JEE">JEE</option>
+      <option value="NEET">NEET</option>
+      <option value="Class 11">Class 11</option>
+      <option value="Class 12">Class 12</option>
+      <option value="Notes">Notes</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Link / URL</label>
+    <input
+      type="url"
+      id="linkURL"
+      placeholder="https://example.com/lecture"
+    >
+  </div>
+
+  <button class="save-btn" onclick="saveLink()">
+    💾 Save Link
+  </button>
+
+  <button class="close-btn" onclick="toggleAdmin()">
+    Close
+  </button>
+
+</section>
+
+
+<!-- MAIN CONTENT -->
+<main class="container">
+
+  <h2 class="section-title">📚 Study Materials</h2>
+
+  <div class="cards" id="linkContainer"></div>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer>
+  <strong>🚀 ARCSTFUG APP</strong>
+  <p>Learn • Practice • Achieve</p>
+  <p>© 2026 ARCSTFUG. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+
+  /* --------------------------------
+     DEFAULT LINKS
+  -------------------------------- */
+
+  const defaultLinks = [
+    {
+      id: 1,
+      title: "JEE Preparation",
+      description: "JEE preparation resources and useful study materials.",
+      category: "JEE",
+      url: "https://www.jeemain.nta.nic.in/"
+    },
+    {
+      id: 2,
+      title: "Physics Study Material",
+      description: "Physics lectures and study resources.",
+      category: "JEE",
+      url: "https://example.com/"
+    },
+    {
+      id: 3,
+      title: "Class 11 Notes",
+      description: "Class 11 educational notes and resources.",
+      category: "Class 11",
+      url: "https://example.com/"
+    }
+  ];
+
+
+  /* --------------------------------
+     LOAD DATA
+  -------------------------------- */
+
+  let savedLinks =
+    JSON.parse(localStorage.getItem("arcstfug_links")) || defaultLinks;
+
+  let currentCategory = "All";
+
+
+  /* --------------------------------
+     DISPLAY LINKS
+  -------------------------------- */
+
+  function displayLinks() {
+
+    const container =
+      document.getElementById("linkContainer");
+
+    const search =
+      document.getElementById("searchInput")
+      .value
+      .toLowerCase();
+
+    let filtered = savedLinks.filter(item => {
+
+      const categoryMatch =
+        currentCategory === "All" ||
+        item.category === currentCategory;
+
+      const searchMatch =
+        item.title.toLowerCase().includes(search) ||
+        item.description.toLowerCase().includes(search) ||
+        item.category.toLowerCase().includes(search);
+
+      return categoryMatch && searchMatch;
+    });
+
+
+    container.innerHTML = "";
+
+
+    if (filtered.length === 0) {
+
+      container.innerHTML = `
+        <div class="empty">
+          😕 No material found.
+        </div>
+      `;
+
+      return;
+    }
+
+
+    filtered.forEach(item => {
+
+      const card = document.createElement("div");
+
+      card.className = "card";
+
+      card.innerHTML = `
+
+        <div class="icon">
+          ${getIcon(item.category)}
+        </div>
+
+        <h3>${escapeHTML(item.title)}</h3>
+
+        <p>
+          ${escapeHTML(item.description)}
+        </p>
+
+        <small>
+          📁 ${escapeHTML(item.category)}
+        </small>
+
+        <br><br>
+
+        <a
+          class="open-btn"
+          href="${safeURL(item.url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          🔗 Open
+        </a>
+
+        <button
+          class="open-btn edit-btn"
+          onclick="editLink(${item.id})"
+        >
+          ✏️
+        </button>
+
+        <button
+          class="open-btn delete-btn"
+          onclick="deleteLink(${item.id})"
+        >
+          🗑️
+        </button>
+
+      `;
+
+      container.appendChild(card);
+
+    });
   }
 
-  return sheet;
-}
 
+  /* --------------------------------
+     ICON
+  -------------------------------- */
 
-// ================= ADMIN LOGIN =================
+  function getIcon(category) {
 
-function checkPassword(password) {
+    if (category === "JEE") return "🎓";
+    if (category === "NEET") return "🧬";
+    if (category === "Class 11") return "📖";
+    if (category === "Class 12") return "📚";
+    if (category === "Notes") return "📝";
 
-  if (!password) {
-    return false;
+    return "🔗";
   }
 
-  return password === ADMIN_PASSWORD;
-}
 
+  /* --------------------------------
+     ADMIN PANEL
+  -------------------------------- */
 
-// ================= GET MATERIALS =================
+  function toggleAdmin() {
 
-function getMaterials() {
+    const panel =
+      document.getElementById("adminPanel");
 
-  const sheet = getSheet();
+    if (panel.style.display === "block") {
 
-  const lastRow = sheet.getLastRow();
+      panel.style.display = "none";
 
-  if (lastRow < 2) {
-    return [];
+    } else {
+
+      panel.style.display = "block";
+
+      window.scrollTo({
+        top: panel.offsetTop - 80,
+        behavior: "smooth"
+      });
+
+    }
   }
 
-  const data = sheet
-    .getRange(2, 1, lastRow - 1, 7)
-    .getValues();
 
-  return data.map(function(row) {
+  /* --------------------------------
+     SAVE LINK
+  -------------------------------- */
 
-    return {
-      id: row[0],
-      title: row[1],
-      subject: row[2],
-      fileName: row[3],
-      fileId: row[4],
-      url: row[5],
-      createdAt: row[6]
-        ? new Date(row[6]).toLocaleString()
-        : ""
+  function saveLink() {
+
+    const title =
+      document.getElementById("linkTitle").value.trim();
+
+    const description =
+      document.getElementById("linkDescription").value.trim();
+
+    const category =
+      document.getElementById("linkCategory").value;
+
+    const url =
+      document.getElementById("linkURL").value.trim();
+
+
+    if (!title || !url) {
+
+      alert("Please enter Title and URL.");
+
+      return;
+    }
+
+
+    if (!isValidURL(url)) {
+
+      alert("Please enter a valid http/https URL.");
+
+      return;
+    }
+
+
+    const newLink = {
+
+      id: Date.now(),
+
+      title: title,
+
+      description:
+        description || "ARCSTFUG educational resource.",
+
+      category: category,
+
+      url: url
+
     };
 
-  });
-}
+
+    savedLinks.unshift(newLink);
 
 
-// ================= UPLOAD PDF =================
+    localStorage.setItem(
+      "arcstfug_links",
+      JSON.stringify(savedLinks)
+    );
 
-function uploadPDF(
-  filename,
-  base64Data,
-  title,
-  subject,
-  password
-) {
 
-  // Check admin password
-  if (password !== ADMIN_PASSWORD) {
-    throw new Error("Wrong admin password.");
-  }
+    document.getElementById("linkTitle").value = "";
+    document.getElementById("linkDescription").value = "";
+    document.getElementById("linkURL").value = "";
 
-  // Required fields
-  if (!filename) {
-    throw new Error("PDF file is required.");
-  }
 
-  if (!base64Data) {
-    throw new Error("PDF data missing.");
-  }
+    displayLinks();
 
-  if (!title) {
-    throw new Error("Material title is required.");
-  }
+    alert("✅ Link successfully added!");
 
-  if (!subject) {
-    throw new Error("Subject is required.");
   }
 
 
-  // Check PDF
-  const lowerName = filename.toLowerCase();
+  /* --------------------------------
+     EDIT LINK
+  -------------------------------- */
 
-  if (!lowerName.endsWith(".pdf")) {
-    throw new Error("Only PDF files are allowed.");
+  function editLink(id) {
+
+    const item =
+      savedLinks.find(x => x.id === id);
+
+    if (!item) return;
+
+
+    const title =
+      prompt("Enter new title:", item.title);
+
+    if (title === null) return;
+
+
+    const description =
+      prompt(
+        "Enter new description:",
+        item.description
+      );
+
+    if (description === null) return;
+
+
+    const url =
+      prompt("Enter new URL:", item.url);
+
+    if (url === null) return;
+
+
+    if (!isValidURL(url)) {
+
+      alert("Invalid URL.");
+
+      return;
+    }
+
+
+    item.title = title.trim();
+    item.description = description.trim();
+    item.url = url.trim();
+
+
+    localStorage.setItem(
+      "arcstfug_links",
+      JSON.stringify(savedLinks)
+    );
+
+
+    displayLinks();
+
   }
 
 
-  // Get Drive folder
-  const folder = DriveApp.getFolderById(FOLDER_ID);
+  /* --------------------------------
+     DELETE LINK
+  -------------------------------- */
+
+  function deleteLink(id) {
+
+    const confirmDelete =
+      confirm("Delete this link?");
+
+    if (!confirmDelete) return;
 
 
-  // Decode Base64
-  const decoded = Utilities.base64Decode(base64Data);
+    savedLinks =
+      savedLinks.filter(item => item.id !== id);
 
 
-  // Create PDF blob
-  const blob = Utilities.newBlob(
-    decoded,
-    "application/pdf",
-    filename
-  );
+    localStorage.setItem(
+      "arcstfug_links",
+      JSON.stringify(savedLinks)
+    );
 
 
-  // Create file
-  const file = folder.createFile(blob);
+    displayLinks();
 
-
-  // Anyone with link can view
-  file.setSharing(
-    DriveApp.Access.ANYONE_WITH_LINK,
-    DriveApp.Permission.VIEW
-  );
-
-
-  // File information
-  const fileId = file.getId();
-
-  const fileUrl =
-    "https://drive.google.com/file/d/" +
-    fileId +
-    "/view";
-
-
-  // Sheet
-  const sheet = getSheet();
-
-
-  // Unique ID
-  const id =
-    new Date().getTime().toString();
-
-
-  // Add data
-  sheet.appendRow([
-    id,
-    title,
-    subject,
-    filename,
-    fileId,
-    fileUrl,
-    new Date()
-  ]);
-
-
-  return {
-    success: true,
-    id: id,
-    title: title,
-    subject: subject,
-    fileName: filename,
-    fileId: fileId,
-    url: fileUrl
-  };
-}
-
-
-// ================= DELETE MATERIAL =================
-
-function deleteMaterial(
-  id,
-  fileId,
-  password
-) {
-
-  // Check password
-  if (password !== ADMIN_PASSWORD) {
-    throw new Error("Wrong admin password.");
   }
 
 
-  // Delete Drive file
-  if (fileId) {
+  /* --------------------------------
+     CATEGORY FILTER
+  -------------------------------- */
+
+  function filterCategory(category, button) {
+
+    currentCategory = category;
+
+
+    document
+      .querySelectorAll(".category")
+      .forEach(btn => {
+
+        btn.classList.remove("active");
+
+      });
+
+
+    button.classList.add("active");
+
+
+    displayLinks();
+
+  }
+
+
+  /* --------------------------------
+     SEARCH
+  -------------------------------- */
+
+  function searchLinks() {
+
+    displayLinks();
+
+  }
+
+
+  /* --------------------------------
+     URL VALIDATION
+  -------------------------------- */
+
+  function isValidURL(url) {
 
     try {
 
-      const file =
-        DriveApp.getFileById(fileId);
+      const parsed =
+        new URL(url);
 
-      file.setTrashed(true);
+      return (
+        parsed.protocol === "http:" ||
+        parsed.protocol === "https:"
+      );
 
-    } catch (error) {
+    } catch {
 
-      // File already deleted
-      console.log(error);
+      return false;
 
     }
+
   }
 
 
-  // Delete Sheet row
-  const sheet = getSheet();
+  function safeURL(url) {
 
-  const lastRow = sheet.getLastRow();
+    return isValidURL(url)
+      ? url
+      : "#";
 
-  if (lastRow < 2) {
-    return true;
   }
 
 
-  const data =
-    sheet
-      .getRange(2, 1, lastRow - 1, 7)
-      .getValues();
+  /* --------------------------------
+     HTML ESCAPE
+  -------------------------------- */
 
+  function escapeHTML(text) {
 
-  for (let i = 0; i < data.length; i++) {
+    return String(text)
 
-    if (String(data[i][0]) === String(id)) {
+      .replace(/&/g, "&amp;")
 
-      sheet.deleteRow(i + 2);
+      .replace(/</g, "&lt;")
 
-      break;
-    }
+      .replace(/>/g, "&gt;")
+
+      .replace(/"/g, "&quot;")
+
+      .replace(/'/g, "&#039;");
+
   }
 
 
-  return true;
-}
+  /* --------------------------------
+     INITIAL LOAD
+  -------------------------------- */
 
+  displayLinks();
 
-// ================= TEST FUNCTION =================
+</script>
 
-function testSystem() {
-
-  const sheet = getSheet();
-
-  Logger.log(
-    "ARCSTFUG System Working"
-  );
-
-  Logger.log(
-    "Sheet: " + sheet.getName()
-  );
-}
+</body>
+  </html>
