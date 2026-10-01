@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARCSTFUG Community</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    color:#111827;
+    padding-bottom:75px;
+}
+
+/* Header */
+header{
+    background:linear-gradient(135deg,#4f46e5,#7c3aed);
+    color:white;
+    padding:18px 20px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 3px 12px #0002;
+}
+
+.header-box{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:bold;
+}
+
+.community{
+    font-size:12px;
+    opacity:.85;
+}
+
+/* Main */
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px 14px;
+}
+
+/* Create Post */
+.create-post{
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 4px 15px #00000012;
+    margin-bottom:18px;
+}
+
+.create-title{
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:14px;
+}
+
+.user-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#4f46e5,#9333ea);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:18px;
+}
+
+.name-input{
+    flex:1;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:12px;
+    outline:none;
+}
+
+.caption{
+    width:100%;
+    min-height:80px;
+    resize:none;
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:12px;
+    outline:none;
+    margin-bottom:12px;
+}
+
+/* Photo Preview */
+.preview{
+    display:none;
+    position:relative;
+    margin-bottom:12px;
+}
+
+.preview img{
+    width:100%;
+    max-height:400px;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+.remove-photo{
+    position:absolute;
+    right:10px;
+    top:10px;
+    border:none;
+    background:#ef4444;
+    color:white;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* Buttons */
+.action-row{
+    display:flex;
+    gap:10px;
+}
+
+.photo-btn{
+    flex:1;
+    border:1px solid #ddd;
+    background:#f8fafc;
+    padding:12px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.post-btn{
+    flex:1;
+    border:none;
+    background:#4f46e5;
+    color:white;
+    padding:12px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.post-btn:hover{
+    background:#4338ca;
+}
+
+/* Feed */
+.feed-title{
+    font-size:20px;
+    font-weight:bold;
+    margin:20px 0 12px;
+}
+
+.post{
+    background:white;
+    border-radius:18px;
+    margin-bottom:18px;
+    overflow:hidden;
+    box-shadow:0 4px 15px #00000012;
+}
+
+.post-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px;
+}
+
+.post-user{
+    font-weight:bold;
+}
+
+.post-time{
+    font-size:12px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+.post-caption{
+    padding:0 15px 15px;
+    line-height:1.5;
+    white-space:pre-wrap;
+}
+
+.post-image{
+    width:100%;
+    max-height:600px;
+    object-fit:cover;
+    display:block;
+}
+
+.post-actions{
+    border-top:1px solid #eee;
+    padding:10px 15px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.like-btn,
+.delete-btn{
+    border:none;
+    background:none;
+    cursor:pointer;
+    padding:8px 12px;
+    border-radius:10px;
+}
+
+.like-btn:hover{
+    background:#f1f5f9;
+}
+
+.delete-btn{
+    color:#ef4444;
+}
+
+/* Empty */
+.empty{
+    text-align:center;
+    padding:40px 20px;
+    color:#64748b;
+}
+
+/* Bottom Nav */
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:white;
+    height:65px;
+    display:flex;
+    justify-content:center;
+    gap:60px;
+    align-items:center;
+    box-shadow:0 -3px 15px #0002;
+    z-index:100;
+}
+
+.nav-item{
+    text-align:center;
+    font-size:12px;
+    color:#64748b;
+    cursor:pointer;
+}
+
+.nav-icon{
+    font-size:22px;
+    display:block;
+}
+
+.nav-item.active{
+    color:#4f46e5;
+    font-weight:bold;
+}
+
+/* Mobile */
+@media(max-width:500px){
+    .logo{
+        font-size:20px;
+    }
+
+    .container{
+        padding:12px 10px;
+    }
+
+    .bottom-nav{
+        gap:35px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-box">
+        <div>
+            <div class="logo">🚀 ARCSTFUG</div>
+            <div class="community">Community Group</div>
+        </div>
+        <div>👥</div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- CREATE POST -->
+    <section class="create-post">
+
+        <div class="create-title">
+            ✨ Create a Post
+        </div>
+
+        <div class="user-row">
+            <div class="avatar" id="userAvatar">A</div>
+
+            <input
+                type="text"
+                id="userName"
+                class="name-input"
+                placeholder="Your name"
+                maxlength="30"
+                oninput="updateAvatar()"
+            >
+        </div>
+
+        <textarea
+            id="caption"
+            class="caption"
+            placeholder="What's on your mind?"
+            maxlength="500"
+        ></textarea>
+
+        <!-- Image Preview -->
+        <div class="preview" id="preview">
+            <img id="previewImage">
+            <button class="remove-photo" onclick="removePhoto()">×</button>
+        </div>
+
+        <div class="action-row">
+
+            <label class="photo-btn">
+                📷 Add Photo
+                <input
+                    type="file"
+                    id="photoInput"
+                    accept="image/*"
+                    hidden
+                    onchange="previewPhoto(event)"
+                >
+            </label>
+
+            <button class="post-btn" onclick="createPost()">
+                🚀 Post
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- FEED -->
+    <div class="feed-title">
+        Community Feed
+    </div>
+
+    <section id="feed"></section>
+
+</main>
+
+<!-- Bottom Navigation -->
+<nav class="bottom-nav">
+
+    <div class="nav-item active" onclick="scrollTopPage()">
+        <span class="nav-icon">🏠</span>
+        Home
+    </div>
+
+    <div class="nav-item" onclick="focusPost()">
+        <span class="nav-icon">➕</span>
+        Post
+    </div>
+
+    <div class="nav-item" onclick="scrollFeed()">
+        <span class="nav-icon">👥</span>
+        Community
+    </div>
+
+</nav>
+
+<script>
+
+let selectedImage = "";
+let posts = JSON.parse(localStorage.getItem("arcstfug_community_posts")) || [];
+
+
+/* Update Avatar */
+function updateAvatar(){
+
+    const name = document.getElementById("userName").value.trim();
+
+    const avatar = document.getElementById("userAvatar");
+
+    avatar.textContent = name
+        ? name.charAt(0).toUpperCase()
+        : "A";
+}
+
+
+/* Photo Preview */
+function previewPhoto(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    if(!file.type.startsWith("image/")){
+        alert("Please select an image.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+
+        selectedImage = e.target.result;
+
+        document.getElementById("previewImage").src = selectedImage;
+
+        document.getElementById("preview").style.display = "block";
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
+/* Remove Photo */
+function removePhoto(){
+
+    selectedImage = "";
+
+    document.getElementById("photoInput").value = "";
+
+    document.getElementById("preview").style.display = "none";
+}
+
+
+/* Create Post */
+function createPost(){
+
+    const name =
+        document.getElementById("userName").value.trim();
+
+    const caption =
+        document.getElementById("caption").value.trim();
+
+    if(!name){
+        alert("Please enter your name.");
+        return;
+    }
+
+    if(!caption && !selectedImage){
+        alert("Please add a caption or photo.");
+        return;
+    }
+
+    const post = {
+
+        id: Date.now(),
+
+        name: name,
+
+        caption: caption,
+
+        image: selectedImage,
+
+        likes: 0,
+
+        time: new Date().toLocaleString("en-IN")
+    };
+
+    posts.unshift(post);
+
+    savePosts();
+
+    document.getElementById("caption").value = "";
+
+    document.getElementById("userName").value = "";
+
+    updateAvatar();
+
+    removePhoto();
+
+    displayPosts();
+
+    scrollFeed();
+}
+
+
+/* Display Posts */
+function displayPosts(){
+
+    const feed = document.getElementById("feed");
+
+    if(posts.length === 0){
+
+        feed.innerHTML = `
+            <div class="empty">
+                <div style="font-size:45px;">📸</div>
+                <h3>No posts yet</h3>
+                <p>Be the first person to post in ARCSTFUG Community.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    feed.innerHTML = posts.map(post => `
+
+        <article class="post">
+
+            <div class="post-header">
+
+                <div class="avatar">
+                    ${escapeHTML(post.name.charAt(0).toUpperCase())}
+                </div>
+
+                <div>
+                    <div class="post-user">
+                        ${escapeHTML(post.name)}
+                    </div>
+
+                    <div class="post-time">
+                        ${escapeHTML(post.time)}
+                    </div>
+                </div>
+
+            </div>
+
+            ${
+                post.caption
+                ?
+                `<div class="post-caption">
+                    ${escapeHTML(post.caption)}
+                </div>`
+                :
+                ""
+            }
+
+            ${
+                post.image
+                ?
+                `<img
+                    class="post-image"
+                    src="${post.image}"
+                    alt="Community post"
+                >`
+                :
+                ""
+            }
+
+            <div class="post-actions">
+
+                <button
+                    class="like-btn"
+                    onclick="likePost(${post.id})"
+                >
+                    ❤️ ${post.likes}
+                </button>
+
+                <button
+                    class="delete-btn"
+                    onclick="deletePost(${post.id})"
+                >
+                    🗑 Delete
+                </button>
+
+            </div>
+
+        </article>
+
+    `).join("");
+}
+
+
+/* Like */
+function likePost(id){
+
+    const post = posts.find(p => p.id === id);
+
+    if(post){
+
+        post.likes++;
+
+        savePosts();
+
+        displayPosts();
+    }
+}
+
+
+/* Delete */
+function deletePost(id){
+
+    const confirmDelete =
+        confirm("Delete this post?");
+
+    if(!confirmDelete) return;
+
+    posts = posts.filter(post => post.id !== id);
+
+    savePosts();
+
+    displayPosts();
+}
+
+
+/* Save */
+function savePosts(){
+
+    try{
+
+        localStorage.setItem(
+            "arcstfug_community_posts",
+            JSON.stringify(posts)
+        );
+
+    }catch(error){
+
+        alert(
+            "Storage full. Please remove some old posts/photos."
+        );
+    }
+}
+
+
+/* Escape HTML */
+function escapeHTML(text){
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+
+/* Navigation */
+function scrollTopPage(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function focusPost(){
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    setTimeout(() => {
+
+        document.getElementById("userName").focus();
+
+    },400);
+}
+
+
+function scrollFeed(){
+
+    document.querySelector(".feed-title")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+}
+
+
+/* Load */
+displayPosts();
+
+</script>
+
+</body>
+</html>
