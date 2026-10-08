@@ -305,18 +305,32 @@ footer p{
         margin-right:12px;
     }
 
-    .logo{
-        font-size:20px;
-    }
-
-    .add-btn{
-        font-size:12px;
-    }
+    ..logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
 }
-</style>
-</head>
 
-<body>
+.logo-img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text small {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.8;
+    }
 
 <!-- HEADER -->
 <header>
