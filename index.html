@@ -1,4 +1,566 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#09052b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>ARCSTFUG — Education & Learning</title>
+
+<style>
+*{box-sizing:border-box}
+:root{
+  --navy:#09052b; --navy2:#120c3d; --purple:#6557e8;
+  --text:#202124; --muted:#777; --bg:#f7f8fa; --card:#fff;
+}
+body{
+  margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);
+  color:var(--text);-webkit-tap-highlight-color:transparent;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+/* Changed max-width to 1200px to support PC, TV, and Phone */
+.app{max-width:1200px;margin:auto;min-height:100vh;background:#0b0b0f;position:relative;padding-bottom:82px}
+
+/* Header */
+.hero{
+  background:linear-gradient(145deg,#09052b,#17104b);
+  color:white;padding:18px 18px 22px;border-radius:0 0 25px 25px;
+  box-shadow:0 5px 18px rgba(0,0,0,.16);
+}
+.topbar{display:flex;align-items:center;gap:13px}
+.menu{
+  width:42px;height:42px;border:0;border-radius:13px;background:rgba(255,255,255,.10);
+  color:#fff;font-size:25px;
+}
+.logo{display:flex;align-items:center;gap:10px;flex:1}
+.logo-img{
+  width:45px;height:45px;border-radius:12px;object-fit:cover;background:#0b0b0f;
+  border:2px solid rgba(255,255,255,.35);
+}
+.logo-text{font-size:20px;font-weight:800;letter-spacing:.3px}
+.logo-text small{display:block;font-size:10px;font-weight:500;opacity:.72;margin-top:3px}
+.add-btn{
+  border:0;background:#0b0b0f;color:#ffffff;border-radius:12px;padding:10px 12px;
+  font-weight:700;font-size:13px;
+}
+.stats{display:flex;gap:10px;margin-top:18px; flex-wrap:wrap;}
+.stat{
+  flex:1; min-width:100px; background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);
+  border-radius:14px;padding:10px;text-align:center;font-weight:800
+}
+.stat span{display:block;font-size:11px;font-weight:500;opacity:.7;margin-top:3px}
+
+/* Banner */
+.banner{
+  margin:15px 16px 0;background:linear-gradient(110deg,#fff8e9,#fffdf8);
+  border:1px solid #f0dfbb;border-radius:17px;padding:14px 15px;
+  display:flex;gap:12px;align-items:center;
+}
+.banner-icon{font-size:25px}.banner b{font-size:15px}.banner p{margin:4px 0 0;color:#b8b8b8;font-size:12px;line-height:1.4}
+
+/* Navaratri Poster Container */
+.navaratri-container {
+  margin: 20px 16px;
+  text-align: center;
+  background: #110e20;
+  border: 1px solid #2a2245;
+  border-radius: 17px;
+  padding: 15px;
+}
+.navaratri-title {
+  color: #ff9e3d;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.navaratri-poster {
+  width: 100%;
+  max-width: 400px; /* Limits size on large screens */
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+}
+
+/* Main */
+.section{padding:18px 16px 0}
+.section-title{font-size:21px;font-weight:800;margin:0 0 13px}
+/* Changed to responsive grid for PC/TV/Phone */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(110px, 1fr));gap:9px}
+.quick{
+  border:0;background:#15151a;border-radius:17px;padding:14px 5px;
+  min-height:92px;color:#e8e8e8;font-weight:700
+}
+.quick .ico{
+  width:43px;height:43px;border-radius:14px;margin:0 auto 8px;display:grid;
+  place-items:center;font-size:22px;background:#24242b9ff
+}
+.quick small{font-size:11px;display:block;line-height:1.2}
+
+.filter{display:flex;gap:8px;overflow:auto;padding:2px 0 12px}
+.filter::-webkit-scrollbar{display:none}
+.chip{
+  white-space:nowrap;border:1px solid #303038;background:#0b0b0f;border-radius:22px;
+  padding:8px 13px;font-size:12px;color:#c9c9c9
+}
+.chip.active{background:#000000;color:#fff;border-color:#ffffff}
+
+/* Changed to responsive grid */
+.links{display:grid;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));gap:15px}
+.card{
+  border:1px solid #29292f;border-radius:17px;background:#0b0b0f;padding:15px;
+  box-shadow:0 3px 12px rgba(25,20,60,.05); display: flex; flex-direction: column; justify-content: space-between;
+}
+.card-top{display:flex;gap:12px;align-items:flex-start}
+.card-icon{
+  width:45px;height:45px;border-radius:13px;background:#24242baff;display:grid;
+  place-items:center;font-size:23px;flex:none
+}
+.card h3{margin:0;font-size:15px;line-height:1.3}
+.card p{margin:5px 0;color:#999;font-size:12px;line-height:1.35}
+.badge{
+  display:inline-block;background:#102617;color:#61d889;border-radius:7px;
+  padding:4px 7px;font-size:10px;font-weight:700;margin-top:3px
+}
+.open{
+  width:100%;margin-top:12px;border:0;border-radius:11px;background:#000000;
+  color:#fff;padding:11px;font-weight:700
+}
+.delete{
+  float:right;border:0;background:#0b0b0f0f0;color:#d33;border-radius:8px;
+  padding:5px 7px;font-size:11px;display:none
+}
+.admin-mode .delete{display:block}
+
+/* Drawer */
+.drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:20;display:none}
+.drawer{
+  position:absolute;left:0;top:0;width:min(88vw,380px);height:100%;background:#0b0b0f;
+  padding:20px 18px;overflow:auto
+}
+.drawer-bg.show{display:block}
+.profile{display:flex;gap:12px;align-items:center;padding:8px 5px 20px}
+.avatar{width:54px;height:54px;border-radius:50%;background:#173d29;display:grid;place-items:center;font-size:28px}
+.profile b{font-size:18px}.profile small{display:block;color:#999;margin-top:3px}
+.drawer hr{border:0;border-top:1px solid #29292f;margin:8px 0 14px}
+.drawer-item{
+  width:100%;border:0;background:#0b0b0f;text-align:left;padding:14px 10px;border-radius:12px;
+  font-size:16px;color:#dedede
+}
+.drawer-item:hover{background:#f5f5f7}
+.close{float:right;border:0;background:#25252b;border-radius:10px;width:38px;height:38px;font-size:20px}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:30;display:none;padding:18px}
+.modal-bg.show{display:flex;align-items:center;justify-content:center}
+.modal{
+  width:min(100%,470px);background:#0b0b0f;border-radius:20px;padding:20px;
+  max-height:90vh;overflow:auto
+}
+.modal-head{display:flex;align-items:center;justify-content:space-between}
+.modal h2{margin:0;font-size:20px}
+.x{border:0;background:#25252b;border-radius:10px;width:36px;height:36px;font-size:19px}
+label{display:block;font-size:12px;font-weight:700;margin:14px 0 6px}
+input,select{
+  width:100%;border:1px solid #ddd;border-radius:11px;padding:12px;outline:none;background:#0b0b0f
+}
+input:focus,select:focus{border-color:#6557e8}
+.save{width:100%;border:0;background:#000000;color:#fff;padding:13px;border-radius:12px;margin-top:18px;font-weight:800}
+
+/* Bottom */
+.bottom{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(1200px,100%);
+  height:68px;background:#0b0b0f;border-top:1px solid #29292f;display:flex;z-index:10;
+}
+.bottom button{flex:1;border:0;background:#0b0b0f;color:#8a8a8a;font-size:10px}
+.bottom button.active{color:#ffffff;font-weight:800}
+.bottom span{display:block;font-size:21px;margin-bottom:3px}
+
+.footer{text-align:center;padding:30px 16px 15px;color:#888;font-size:11px}
+.footer b{color:#c9c9c9}
+.empty{text-align:center;padding:30px;color:#888}
+
+@media(max-width:380px){
+ .quick-grid{grid-template-columns:repeat(2,1fr)}
+ .stats{gap:6px}.stat{font-size:12px}
+}
+</style>
+
+<style id="dark-theme-fix">
+body{background:#050507;color:#f2f2f2}
+.app{background:#0b0b0f}
+.quick{background:#15151a;color:#eee}
+.card{background:#101014;border-color:#29292f}
+.banner{background:linear-gradient(110deg,#171714,#111113);border-color:#38352b}
+.banner p,.card p{color:#aaa}
+.chip{background:#101014;color:#ccc;border-color:#303038}
+.chip.active{background:#000;color:#fff;border-color:#555}
+.bottom{background:#0b0b0f;border-color:#29292f}
+.bottom button{background:#0b0b0f;color:#888}
+.bottom button.active{color:#fff}
+.drawer{background:#0b0b0f}
+.drawer-item{background:#0b0b0f;color:#ddd}
+.drawer-item:hover{background:#18181d}
+.modal{background:#0b0b0f;color:#eee}
+input,select{background:#15151a;color:#eee;border-color:#35353d}
+input::placeholder{color:#777}
+.footer{color:#888}
+.footer b{color:#ddd}
+.stat{color:#fff}
+.open{background:#000;border:1px solid #333}
+.add-btn{background:#fff;color:#000}
+</style>
+
+<style id="community-css">
+.community-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.community-btn{
+  border:0;background:#ffffff;color:#000;border-radius:11px;padding:9px 12px;
+  font-size:12px;font-weight:800
+}
+/* Changed to responsive grid for PC/TV/Phone */
+.community-feed{display:grid;grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));gap:15px}
+.post{
+  background:#101014;border:1px solid #29292f;border-radius:18px;overflow:hidden;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.post-head{display:flex;align-items:center;gap:10px;padding:13px 14px}
+.post-avatar{
+  width:39px;height:39px;border-radius:50%;object-fit:cover;background:#25252b;
+}
+.post-user{font-weight:800;font-size:13px}.post-time{font-size:10px;color:#888;margin-top:2px}
+.post-img{display:block;width:100%;max-height:430px;object-fit:cover;background:#050507}
+.post-caption{padding:11px 14px;color:#ddd;font-size:13px;line-height:1.45}
+.post-actions{display:flex;gap:8px;padding:0 14px 13px; margin-top: auto;}
+.post-actions button{
+  border:1px solid #303038;background:#18181d;color:#ddd;border-radius:10px;
+  padding:7px 10px;font-size:11px; flex: 1;
+}
+.community-empty{text-align:center;padding:22px;color:#888;border:1px dashed #333;border-radius:15px; grid-column: 1 / -1;}
+.photo-preview{
+  width:100%;max-height:230px;object-fit:contain;border-radius:12px;
+  background:#050507;margin-top:8px;display:none
+}
+</style>
+
+</head>
+
+<body>
+<div class="app">
+
+<header class="hero">
+  <div class="topbar">
+    <button class="menu" onclick="openDrawer()">☰</button>
+
+    <div class="logo">
+      <img
+        src="https://raw.githubusercontent.com/arcstfugs/arcstfug-app/refs/heads/main/20241217_210814.jpg"
+        alt="ARCSTFUG Logo"
+        class="logo-img"
+        onerror="this.style.display='none'"
+      >
+      <div class="logo-text">
+        ARCSTFUG
+        <small>Education &amp; Learning App</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">🎓 <span>Learning</span></div>
+    <div class="stat">📚 <span>Resources</span></div>
+    <div class="stat">🚀 <span>JEE / NEET</span></div>
+  </div>
+</header>
+
+<div class="banner">
+  <div class="banner-icon">✨</div>
+  <div>
+    <b>Welcome to ARCSTFUG</b>
+    <p>Free educational resources, batches, notes and useful study links in one place.</p>
+  </div>
+</div>
+
+<!-- Navaratri Poster Section added here -->
+<div class="navaratri-container">
+  <h2 class="navaratri-title">🌺 Happy Navaratri 🌺</h2>
+  <img src="watermarked_img_16310430782653148749.png" alt="Navaratri Utsav Poster" class="navaratri-poster">
+</div>
+
+<main>
+<section class="section">
+  <h2 class="section-title">Quick Access</h2>
+  <div class="quick-grid">
+    <button class="quick" onclick="setCategory('All')"><div class="ico">🎓</div><small>All Resources</small></button>
+    <button class="quick" onclick="setCategory('JEE')"><div class="ico">⚡</div><small>JEE</small></button>
+    <button class="quick" onclick="setCategory('NEET')"><div class="ico">🩺</div><small>NEET</small></button>
+    <button class="quick" onclick="setCategory('Class 12')"><div class="ico">📘</div><small>Class 12</small></button>
+  </div>
+</section>
+
+<section class="section" id="communitySection">
+  <div class="community-head">
+    <h2 class="section-title">Community</h2>
+    <button class="community-btn" onclick="openCommunityModal()">📸 Post Photo</button>
+  </div>
+  <div class="community-feed" id="communityFeed"></div>
+</section>
+
+<section class="section">
+  <h2 class="section-title">Study Links</h2>
+  <div class="filter" id="filters"></div>
+  <div class="links" id="links"></div>
+</section>
+</main>
+
+<footer class="footer">
+  <p>Powered by <b>
+    <a href="https://www.instagram.com/abhishek_84p/" target="_blank" style="color:#61d889; text-decoration:none;">Abhishek Kumar</a> &amp; 
+    Shivam &amp; 
+    <a href="https://www.instagram.com/_aniruddh__18__/" target="_blank" style="color:#61d889; text-decoration:none;">Aniruddh Mishra</a>
+  </b></p>
+  <p>© 2026 ARCSTFUG</p>
+</footer>
+
+<div class="bottom">
+  <button class="active" onclick="scrollTopApp()"><span>⌂</span>Home</button>
+  <button onclick="document.getElementById('communitySection').scrollIntoView({behavior:'smooth'})"><span>👥</span>Community</button>
+  <button onclick="openDrawer()"><span>☰</span>Menu</button>
+</div>
+</div>
+
+<!-- Drawer -->
+<div class="drawer-bg" id="drawerBg" onclick="closeDrawer(event)">
+  <aside class="drawer">
+    <button class="close" onclick="closeDrawer()">×</button>
+    <div class="profile">
+      <div class="avatar">👨‍🎓</div>
+      <div><b>Hi, Abhishek</b><small>ARCSTFUG Education</small></div>
+    </div>
+    <hr>
+    <button class="drawer-item" onclick="document.getElementById('communitySection').scrollIntoView({behavior:'smooth'});closeDrawer()">👥 Community</button>
+    <button class="drawer-item" onclick="setCategory('All');closeDrawer()">🏠 Home</button>
+    <button class="drawer-item" onclick="setCategory('JEE');closeDrawer()">⚡ JEE Resources</button>
+    <button class="drawer-item" onclick="setCategory('NEET');closeDrawer()">🩺 NEET Resources</button>
+    <button class="drawer-item" onclick="setCategory('Class 12');closeDrawer()">📘 Class 12</button>
+    <button class="drawer-item" onclick="alert('ARCSTFUG — Education & Learning App')">ℹ️ About ARCSTFUG</button>
+  </aside>
+</div>
+
+<!-- Community photo modal -->
+<div class="modal-bg" id="communityModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>📸 Community Post</h2>
+      <button class="x" onclick="closeCommunityModal()">×</button>
+    </div>
+
+    <label>Student Name</label>
+    <input id="postName" maxlength="40" placeholder="Enter your name">
+
+    <label>Choose Photo</label>
+    <input id="postPhoto" type="file" accept="image/*" onchange="previewCommunityPhoto(event)">
+    <img id="photoPreview" class="photo-preview" alt="Photo preview">
+
+    <label>Caption</label>
+    <input id="postCaption" maxlength="180" placeholder="Share your study update...">
+
+    <button class="save" onclick="createCommunityPost()">Post to Community</button>
+    <p style="font-size:10px;color:#888;line-height:1.4;margin:10px 0 0">
+      Demo mode: posts are stored on this device/browser. A real shared community needs an online database/storage backend.
+    </p>
+  </div>
+</div>
+
+<script>
+const defaultLinks = [
+  {
+    id:1,title:"🎓 Nexttoppes",description:"Enroll free Nexttoppers batch.",
+    category:"Class 9-12",url:"https://eduvibe-nt.pages.dev/"
+  },
+  {
+    id:2,title:"🎓 Arjuna NEET 2.0 2027",description:"Join / access the NEET batch.",
+    category:"NEET",url:"https://pwthor.live/study/batches/698c4bf6f82a9d764524d6da"
+  },
+  {
+    id:3,title:"🎓 Lakshya Power Batch JEE Target 2027 (J1214EB26)",
+    description:"Enroll free PW batch.",category:"Class 12",
+    url:"https://pwthor.live/study/batches/68e5118a37f6e80209bb46c2"
+  },
+  {
+    id:4,title:"🎓 Arjuna Power Batch JEE Target 2.0 2028 (J1113AB26)",
+    description:"JEE preparation resource.",category:"Class 9-12",
+    url:"https://pwthor.live/study/batches/696644c37d98335e974b6515"
+  },
+  {
+    id:5,title:"🎓 Lakshya JEE 2027",description:"JEE preparation batch.",
+    category:"Class 12",url:"https://pwthor.live/study/batches/6779345c20fa0756e4a7fd08"
+  },
+  {
+    id:6,title:"🎓 JEE Advanced PYQ 2015-2026",description:"Previous year question resources.",
+    category:"JEE",url:"https://drive.google.com/drive/folders/10uT5xt16uO3DViOxIB5x3HpfLr1cCimy"
+  },
+  {
+    id:7,title:"🎓 UDAY 2027 (Class 11th)",description:"Class 11 preparation batch.",
+    category:"Class 11",url:"https://pwthor.live/study/batches/698de475e0f24f0f10b97658"
+  },
+  {
+    id:8,title:"🎓 UDAAN Advanced 2027",description:"Class 10 preparation resource.",
+    category:"Class 9-10",url:"https://pwthor.live/study/batches/69fd8dffe3722cbb00fa0dd8"
+  },
+  {
+    id:9,title:"📚 Physics Resource — HC VERMA",description:"Physics study resource.",
+    category:"JEE",url:"https://drive.google.com/drive/folders/1oj32-UtrZ7d9fbqLKfQiMUIcR78MLMJG"
+  },
+  {
+    id:10,title:"📝 Class 12 Notes",description:"Class 12 study notes.",
+    category:"Class 12",url:"https://example.com/"
+  }
+];
+
+let links = JSON.parse(localStorage.getItem("arcstfug_links") || "null") || defaultLinks;
+let currentCategory = "All";
+let communityPosts = JSON.parse(localStorage.getItem("arcstfug_community_posts") || "[]");
+
+function save(){localStorage.setItem("arcstfug_links",JSON.stringify(links))}
+function saveCommunity(){localStorage.setItem("arcstfug_community_posts",JSON.stringify(communityPosts));}
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function categories(){
+  return ["All","JEE","NEET","Class 9-10","Class 11","Class 12","Resources"];
+}
+function renderFilters(){
+  document.getElementById("filters").innerHTML=categories().map(c=>
+    `<button class="chip ${c===currentCategory?'active':''}" onclick="setCategory('${c}')">${c}</button>`
+  ).join("");
+}
+function render(){
+  renderFilters();
+  const list=currentCategory==="All"?links:links.filter(x=>x.category===currentCategory || (currentCategory==="JEE" && /JEE/i.test(x.title)));
+  const el=document.getElementById("links");
+  if(!list.length){el.innerHTML='<div class="empty">No links found in this category.</div>';return}
+  el.innerHTML=list.map(x=>`
+    <article class="card">
+      <button class="delete" onclick="deleteLink(${x.id})">Delete</button>
+      <div class="card-top">
+        <div class="card-icon">${x.title.match(/^\S+/)?.[0] || "📚"}</div>
+        <div>
+          <h3>${esc(x.title.replace(/^\S+\s*/,""))}</h3>
+          <p>${esc(x.description)}</p>
+          <span class="badge">${esc(x.category)}</span>
+        </div>
+      </div>
+      <button class="open" onclick="openLink('${esc(x.url)}')">Open Resource →</button>
+    </article>
+  `).join("");
+}
+function setCategory(c){
+  currentCategory=c;
+  render();
+}
+
+function openCommunityModal(){
+  document.getElementById("communityModal").classList.add("show");
+}
+function closeCommunityModal(){
+  document.getElementById("communityModal").classList.remove("show");
+  document.getElementById("photoPreview").style.display="none";
+}
+function previewCommunityPhoto(e){
+  const file=e.target.files && e.target.files[0];
+  const preview=document.getElementById("photoPreview");
+  if(!file){preview.style.display="none";return}
+  if(!file.type.startsWith("image/")){alert("Please select an image.");return}
+  if(file.size > 4*1024*1024){
+    alert("Please choose an image smaller than 4 MB.");
+    e.target.value="";
+    preview.style.display="none";
+    return;
+  }
+  const reader=new FileReader();
+  reader.onload=()=>{preview.src=reader.result;preview.style.display="block"};
+  reader.readAsDataURL(file);
+}
+function createCommunityPost(){
+  const name=document.getElementById("postName").value.trim() || "ARCSTFUG Student";
+  const caption=document.getElementById("postCaption").value.trim();
+  const file=document.getElementById("postPhoto").files[0];
+
+  if(!file){alert("Please select a student photo.");return}
+  if(!file.type.startsWith("image/")){alert("Please select an image.");return}
+  if(file.size > 4*1024*1024){alert("Photo must be smaller than 4 MB.");return}
+
+  const reader=new FileReader();
+  reader.onload=()=>{
+    communityPosts.unshift({
+      id:Date.now(),
+      name:name,
+      caption:caption || "Learning with ARCSTFUG 📚",
+      image:reader.result,
+      time:new Date().toLocaleString()
+    });
+    if(communityPosts.length>20) communityPosts=communityPosts.slice(0,20);
+    saveCommunity();
+    renderCommunity();
+    closeCommunityModal();
+    document.getElementById("postName").value="";
+    document.getElementById("postCaption").value="";
+    document.getElementById("postPhoto").value="";
+  };
+  reader.readAsDataURL(file);
+}
+function deleteCommunityPost(id){
+  if(!confirm("Delete this post?"))return;
+  communityPosts=communityPosts.filter(p=>p.id!==id);
+  saveCommunity();renderCommunity();
+}
+function renderCommunity(){
+  const feed=document.getElementById("communityFeed");
+  if(!communityPosts.length){
+    feed.innerHTML='<div class="community-empty">👥 No posts yet.<br>Be the first student to share a study photo!</div>';
+    return;
+  }
+  feed.innerHTML=communityPosts.map(p=>`
+    <article class="post">
+      <div class="post-head">
+        <div class="post-avatar">🎓</div>
+        <div><div class="post-user">${esc(p.name)}</div><div class="post-time">${esc(p.time)}</div></div>
+      </div>
+      <img class="post-img" src="${p.image}" alt="Student community photo">
+      <div class="post-caption">${esc(p.caption)}</div>
+      <div class="post-actions">
+        <button onclick="alert('Liked ❤️')">❤️ Like</button>
+        <button onclick="navigator.share ? navigator.share({title:'ARCSTFUG Community',text:'Check this ARCSTFUG student post!'}) : alert('Share is not supported on this browser.')">↗ Share</button>
+        <button onclick="deleteCommunityPost(${p.id})">🗑 Delete</button>
+      </div>
+    </article>
+  `).join("");
+}
+
+function openLink(url){
+  if(!/^https?:\/\//i.test(url)){alert("Invalid link");return}
+  window.open(url,"_blank","noopener,noreferrer");
+}
+function deleteLink(id){
+  if(!confirm("Delete this link?"))return;
+  links=links.filter(x=>x.id!==id);save();render();
+}
+function openDrawer(){document.getElementById("drawerBg").classList.add("show")}
+function closeDrawer(e){
+  if(!e || e.target===document.getElementById("drawerBg"))
+    document.getElementById("drawerBg").classList.remove("show");
+}
+function scrollTopApp(){window.scrollTo({top:0,behavior:"smooth"})}
+
+renderCommunity();
+render();
+</script>
+</body>
+</html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
